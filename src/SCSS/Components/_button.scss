@@ -1,0 +1,16 @@
+.button {
+    margin-top: 1rem;
+    font-family: inherit;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 30px;
+    width: 280px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #0095f6;
+
+    &:disabled {
+        background-color: rgba(127, 201, 235, 0.555);
+    }
+}
+

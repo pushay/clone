@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Switch } from 'react-router-dom';
-import LogSign from './Components/logSign';
+import LogSign from './Components/LogSign';
 
 function Routing(){
     return(

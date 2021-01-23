@@ -1,69 +1,54 @@
-import React from 'react';
-import transparentPhone from '../Assets/transparentPhone.png'
+import React, { useState } from 'react';
+import transparentPhone from '../Assets/transparentPhone.png';
+import Button from '../Components/Button';
 
 function LogSign(props){
+
+    const LoginsText = {
+        loginInput : ['username','password'],
+        signInput : []
+    }
+
+    const [usernamePassword, setUserNamePassword] = useState({})
+    const [buttonState, setButtonState] = useState(false)
+
+    const getForm = (input, inputValue) => {
+        setUserNamePassword({...usernamePassword, [input]:inputValue});
+        console.log(usernamePassword)
+    }
+
     return(
         <div className='logSign'>
-            {
-            props.login
-            ? 
-            <div className=''>
-                <img src={transparentPhone} alt=""/>
+            { 
+            props.login ? 
+            <div className='logSign__presentation'>
+                <img className='logSign__photo' src={transparentPhone} alt=""/>
             </div>
-            :
-            null
+            : null 
             }
+            <div 
+            className="logSign__Instagram">
+                <h1 className="logSign__header">InstagramClone</h1>
+                <div className="logSign__formContainer">
+                    <form className="logSign__form">
+                         {LoginsText.loginInput.map((inputType, i)=> {
+                             return(
+                                 <div key={inputType+{i}}>
+                                     <input
+                                     onChange={e => {getForm(inputType, e.target.value)}} 
+                                     name={inputType}
+                                     className='logSign__input'
+                                     placeholder={inputType}/>
+                                 </div>
+                             )
+                         })}
+                         <Button text='Log in' disabled={buttonState}/>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
 
 export default LogSign
 
-// <main 
-//     class="login__main">
-//         <article 
-//         class="login__article">
-//             <div 
-//             class="login__imageContainer">
-//                 <img src="/instagram/content/images/takephoto.jpg" 
-//                 alt="niagaraphoto"
-//                 class="login__image"
-//                 >
-//             </div>
-//             <div class="login__logContainer">
-//             <div
-//             class="login__logToInstagram">
-//                 <h1 class="login__header">Instagram</h1>
-//                 <div
-//                 class="login__formContainer">
-//                     <form class="login__form">
-//                         <input name="username"
-//                         class="login__input"
-//                         placeholder="username">
-//                         <input name="password"
-//                         class="login__input"
-//                         placeholder="password">
-//                         <button
-//                         class="login__button">
-//                             Log in
-//                         </button>
-//                     </form>
-//                     <div
-//                     class="login__facebookContainer">
-//                         <button class="login__facebook">
-//                         PUT HERE LOGIN TO FACEBOOK
-//                         </button>
-//                     </div>
-//                 </div> 
-//             </div>
-//             <div
-//             class="login__logToInstagram login__logToInstagram--checkAccount">
-//                 <p class="login__paragraph"> Don't have a account?</p>
-//                 <a class="login__link"
-//                 href="#">Sign up</a>
-//             </div>
-//             </div>
-//         </article>
-//     </main>
-// </section>
-// <?php include $_SERVER['DOCUMENT_ROOT'].'/instagram/view/templates/footer.php';?>
