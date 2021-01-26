@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 import transparentPhone from '../Assets/transparentPhone.png';
 import Button from '../Components/Button';
 
@@ -10,11 +11,20 @@ function LogSign(props){
     }
 
     const [usernamePassword, setUserNamePassword] = useState({})
-    const [buttonState, setButtonState] = useState(false)
+    const [buttonState, setButtonState] = useState(true)
+
+    useEffect( () => {
+            if (usernamePassword.username == '' || usernamePassword.password == ''){
+                setButtonState(true)
+            }
+            else if (!usernamePassword.password == '' && !usernamePassword.username == ''){
+                setButtonState(false);
+            }
+
+    },[usernamePassword])
 
     const getForm = (input, inputValue) => {
-        setUserNamePassword({...usernamePassword, [input]:inputValue});
-        console.log(usernamePassword)
+        setUserNamePassword({...usernamePassword, [input]:inputValue})
     }
 
     return(
@@ -28,24 +38,34 @@ function LogSign(props){
             }
             <div 
             className="logSign__Instagram">
-                <h1 className="logSign__header">InstagramClone</h1>
-                <div className="logSign__formContainer">
-                    <form className="logSign__form">
-                         {LoginsText.loginInput.map((inputType, i)=> {
-                             return(
-                                 <div key={inputType+{i}}>
-                                     <input
-                                     onChange={e => {getForm(inputType, e.target.value)}} 
-                                     name={inputType}
-                                     className='logSign__input'
-                                     placeholder={inputType}/>
-                                 </div>
-                             )
-                         })}
-                         <Button text='Log in' disabled={buttonState}/>
-                    </form>
+                <div className='logSign__log'>
+                    <h1 className="logSign__header">InstagramClone</h1>
+                    <div className="logSign__formContainer">
+                        <form className="logSign__form">
+                            {LoginsText.loginInput.map((inputType, i)=> {
+                                return(
+                                    <div key={inputType+{i}}>
+                                        <input
+                                        onChange={e => {getForm(inputType, e.target.value)}} 
+                                        name={inputType}
+                                        className='logSign__input'
+                                        placeholder={inputType}/>
+                                    </div>
+                                )
+                            })}
+                            <Button text='Log in' disabled={buttonState}/>
+                        </form>
+                    </div>
                 </div>
+                {props.question == 'signup' ?
+                <div className='logSign__question'>
+                    <p className='logSign__paragraph'>Don't have an account?</p>
+                    <Link className='logSign__link'> Sign up</Link>
+                </div>
+                : null
+                }
             </div>
+            
         </div>
     )
 }

@@ -6,7 +6,7 @@ function Routing(){
     return(
         <Switch>
             <Route exact path="/">
-                <LogSign login/>
+                <LogSign login='yes' question='signup'/>
             </Route>
         </Switch>
     )
