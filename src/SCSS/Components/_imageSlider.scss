@@ -1,0 +1,28 @@
+.imageSlider {
+    margin-right: 2rem;
+    position: relative;
+    z-index: 10000;
+
+    &__transparentPhoto {
+        height: 700px;
+        z-index: 10000;
+        
+    }
+
+    &__slideContainer {
+        height: 590px;
+        width: 270px;
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: -1;
+        overflow: hidden;
+        margin: 2rem 0 0 1.8rem;
+    }
+
+    &__insidePhoto {
+        height: 560px;
+        width: 350px;
+        border-radius: 30px;
+    }
+}

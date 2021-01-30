@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
-import transparentPhone from '../Assets/transparentPhone.png';
 import Button from '../Components/Button';
+import ImageSlider from './ImageSlider';
 
 function LogSign(props){
 
@@ -11,7 +11,7 @@ function LogSign(props){
     }
 
     const [usernamePassword, setUserNamePassword] = useState({})
-    const [buttonState, setButtonState] = useState(true)
+    const [buttonDisabled, setButtonState] = useState(true)
 
     useEffect( () => {
             if (usernamePassword.username == '' || usernamePassword.password == ''){
@@ -29,11 +29,8 @@ function LogSign(props){
 
     return(
         <div className='logSign'>
-            { 
-            props.login ? 
-            <div className='logSign__presentation'>
-                <img className='logSign__photo' src={transparentPhone} alt=""/>
-            </div>
+            {props.imageSlider == 'login' ? 
+                <ImageSlider imageSlider='login'/>
             : null 
             }
             <div 
@@ -53,14 +50,14 @@ function LogSign(props){
                                     </div>
                                 )
                             })}
-                            <Button text='Log in' disabled={buttonState}/>
+                            <Button text='Log in' disabled={buttonDisabled}/>
                         </form>
                     </div>
                 </div>
                 {props.question == 'signup' ?
                 <div className='logSign__question'>
                     <p className='logSign__paragraph'>Don't have an account?</p>
-                    <Link className='logSign__link'> Sign up</Link>
+                    <Link className='logSign__link' to='/'> Sign up</Link>
                 </div>
                 : null
                 }

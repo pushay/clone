@@ -11,4 +11,3 @@ function Button(props){
 
 export default Button
 
-// style={props.stateUsernamePassword ? enabledColor : disabledColor}
