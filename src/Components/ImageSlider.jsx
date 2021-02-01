@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import transparentPhone from '../Assets/transparentPhone.png';
 import slide1 from '../Assets/loginImageSlider/slide1.jpg';
-// import slide2 from '../Assets/loginImageSlider/slide2.jpg';
-// import slide3 from '../Assets/loginImageSlider/slide3.jpg';
-// import slide4 from '../Assets/loginImageSlider/slide4.jpg';
+import slide2 from '../Assets/loginImageSlider/slide2.jpg';
+import slide3 from '../Assets/loginImageSlider/slide3.jpg';
+import slide4 from '../Assets/loginImageSlider/slide4.jpg';
+
+const slides = [slide1, slide2, slide3, slide4]
 
 function ImageSlider(props){
 
-    // eslint-disable-next-line no-unused-vars
-    const [loginSlider, setLoginSlider] = useState()
+    const [loginSlider, setLoginSlider] = useState(0)
 
     useEffect( () => {
-        setInterval(loginSliderWorking, 200);
+       const slider =setInterval(() => {
+           loginSliderWorking()
+       }, 6000)
+
+       return () => clearInterval(slider)
+
     },[])
 
     const loginSliderWorking = () => {
-        
+        setLoginSlider(prevLoginSlider => {
+            if (prevLoginSlider == slides.length - 1) return 0
+            return prevLoginSlider + 1
+        })
     }
 
-    console.log(props)
+
+
+    // console.log(props)
     if (props.imageSlider == 'login'){
         return(
             <div className='imageSlider'>
                <img src={transparentPhone} alt='transparentPhone' className='imageSlider__transparentPhone'/>
                <div className='imageSlider__slideContainer'>
-                    <img src={slide1} alt={slide1} className='imageSlider__insidePhoto' />
+                    <img src={slides[loginSlider]} alt={slide1} className='imageSlider__insidePhoto' />
                </div>
             </div>
         )

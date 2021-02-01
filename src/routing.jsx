@@ -6,7 +6,10 @@ function Routing(){
     return(
         <Switch>
             <Route exact path="/">
-                <LogSign imageSlider='login' question='signup'/>
+                <LogSign imageSlider='login' inputs='loginInput' question='signup'/>
+            </Route>
+            <Route path="/signUp">
+                <LogSign inputs='signInput' question='login'/>
             </Route>
         </Switch>
     )

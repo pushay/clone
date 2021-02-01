@@ -2,33 +2,33 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import Button from '../Components/Button';
 import ImageSlider from './ImageSlider';
+import {InputsText, LogSignTexts} from './LogSignText';
 
 function LogSign(props){
 
-    const LoginsText = {
-        loginInput : ['username','password'],
-        signInput : []
-    }
-
-    const [usernamePassword, setUserNamePassword] = useState({})
+    const [loginForm, setLoginForm] = useState({})
+    const [signUpForm, setSignUpForm] = useState({})
     const [buttonDisabled, setButtonState] = useState(true)
 
     useEffect( () => {
-            if (usernamePassword.username == '' || usernamePassword.password == ''){
+            if (loginForm.username == '' || loginForm.password == ''){
                 setButtonState(true)
             }
-            else if (!usernamePassword.password == '' && !usernamePassword.username == ''){
+            else if (!loginForm.password == '' && !loginForm.username == ''){
                 setButtonState(false);
             }
 
-    },[usernamePassword])
+    },[loginForm])
 
     const getForm = (input, inputValue) => {
-        setUserNamePassword({...usernamePassword, [input]:inputValue})
+        if (input == 'all' || input == 'password'){
+            setLoginForm({...loginForm, [input]:inputValue})
+        }
+        else setSignUpForm({...signUpForm, [input]:inputValue})
     }
 
     return(
-        <div className='logSign'>
+        <div className='logSign' style={{padding:props.inputs == 'loginInput' ? '11.5rem 2rem' : '4.5rem 2rem'}}>
             {props.imageSlider == 'login' ? 
                 <ImageSlider imageSlider='login'/>
             : null 
@@ -37,27 +37,35 @@ function LogSign(props){
             className="logSign__Instagram">
                 <div className='logSign__log'>
                     <h1 className="logSign__header">InstagramClone</h1>
+                    {props.question == 'login' ?
+                     <p className='logSign__headerParagraph'>{LogSignTexts.signup.headingText}</p>
+                     : null
+                    }
                     <div className="logSign__formContainer">
                         <form className="logSign__form">
-                            {LoginsText.loginInput.map((inputType, i)=> {
+                            {InputsText[props.inputs].map((inputType, i)=> {
                                 return(
-                                    <div key={inputType+{i}}>
+                                    <div key={inputType.name+{i}}>
                                         <input
-                                        onChange={e => {getForm(inputType, e.target.value)}} 
-                                        name={inputType}
+                                        onChange={e => {getForm(inputType.type, e.target.value)}} 
+                                        name={inputType.name}
                                         className='logSign__input'
-                                        placeholder={inputType}/>
+                                        placeholder={inputType.name}/>
                                     </div>
                                 )
                             })}
                             <Button text='Log in' disabled={buttonDisabled}/>
+                            {props.question == 'login' ? 
+                            <p className='logSign__bellowParagraph'>{LogSignTexts.signup.belowText}</p>
+                            : null    
+                            }
                         </form>
                     </div>
                 </div>
-                {props.question == 'signup' ?
+                {props.question == 'signup' || "login" ?
                 <div className='logSign__question'>
-                    <p className='logSign__paragraph'>Don't have an account?</p>
-                    <Link className='logSign__link' to='/'> Sign up</Link>
+                    <p className='logSign__paragraph'>{LogSignTexts[props.question].question.question}</p>
+                    <Link className='logSign__link' to={LogSignTexts[props.question].question.link}>{LogSignTexts[props.question].question.linkText}</Link>
                 </div>
                 : null
                 }

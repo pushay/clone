@@ -1,6 +1,5 @@
 .logSign {
     display: flex;
-    padding: 11rem 2rem;
     justify-content: center;
     align-items: center;
     background-color: rgb(248, 245, 245);
@@ -15,15 +14,24 @@
            display: flex;
         }
      }
+
+     &__headerParagraph {
+       width: 260px;
+       font-size: 1.25rem;
+       margin-bottom: 2rem;
+       text-align: center;
+       color: rgb(44, 42, 42);
+       font-weight: bold;
+     }
  
      &__log {
       background-color: #fff;
-      padding: 2.5rem 1rem;
+      padding: 2.5rem 1.5rem;
       border: 1px solid rgb(207, 199, 199);
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
      }
 
      &__header {
@@ -31,7 +39,7 @@
        font-family: 'Cookie', cursive;
        display: flex;
        justify-content: center;
-       margin: 0rem 2rem 2.5rem 2rem;
+       margin: 0rem 2rem 1.5rem 2rem;
        color: rgb(44, 42, 42);
      }
  
@@ -61,6 +69,13 @@
      &__paragraph {
        margin-right: 0.5rem;
      }
+
+     &__bellowParagraph {
+       width: 280px;
+       margin: 2rem 0 0 0;
+       font-size: 0.8rem;
+       text-align: center;
+     }
  
      &__link {
        text-decoration: none;
@@ -77,6 +92,6 @@
       border: 1px solid rgb(207, 199, 199);
       background-color: #fff;
       padding: 2.5rem 1rem;
-      width: 310px;
+      width: 320px;
      }
  }
