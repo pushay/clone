@@ -1,9 +1,10 @@
 import React from 'react';
 
 function Button(props){
+
     return(
         <div className={props.buttonDivclassName}>
-            <button disabled={props.disabled ? props.disabled : null} className='button'>{props.text}</button>
+            <button type='button' disabled={props.disabled ? props.disabled : null} className='button'>{props.text}</button>
         </div>
     )
 }

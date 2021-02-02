@@ -1,0 +1,31 @@
+.form {
+    
+    &__formContainer {
+        
+    }
+
+    &__formArea {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 3rem;
+      }
+  
+      &__input {
+        display: flex;
+        justify-content: flex-start;
+        height: 35px;
+        width: 260px;
+        margin-bottom: 0.5rem;
+        border: 1px solid rgb(180, 173, 173);
+        font-family: inherit;
+        border-radius: 2px;
+        padding-left: 1rem;
+      }
+  
+      &__checkAccount {
+        padding: 2rem;
+        border: 1px solid rgb(207, 199, 199);
+      }
+ 
+  
+}

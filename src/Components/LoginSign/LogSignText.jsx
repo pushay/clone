@@ -1,6 +1,6 @@
 const InputsText = {
         loginInput : [
-            {name:'username, phone number or email', type:'all'},
+            {name:'username, phone number or email', type:'usephemail'},
             {name:'password', type:'password'}
         ],
         signInput : [
@@ -25,7 +25,7 @@ const LogSignTexts = {
         question : {
             question:"Don't have an account?",
             link:'/SignUp',
-            linkText:'Sign in'
+            linkText:'Sign up'
         },
         belowText:'By signing up, you agree to our Terms. Any data submited will not be used against you and will be collected only for educational purpose of this project.'
     }
