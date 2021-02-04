@@ -1,16 +1,22 @@
 .button {
     margin-top: 1rem;
     font-family: inherit;
-    border: 1px solid black;
+    border: none;
     border-radius: 5px;
-    height: 30px;
+    height: 37px;
     width: 280px;
     color: #fff;
     font-weight: bold;
-    background-color: #0095f6;
+    background-color: #287ae6;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
 
     &:disabled {
-        background-color: rgba(0, 149, 246, 0.35);
+        background-color: rgba(0, 149, 246, 0.45);
     }
 }
 
