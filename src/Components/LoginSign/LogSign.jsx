@@ -7,34 +7,40 @@ import Form from '../Form/Form';
 function LogSign(props){
 
     useEffect(() => {
-        subscribeToLogin();
+        facebookLogin();
     }, [])
 
-    const subscribeToLogin = () => {
+    const facebookLogin = () => {
         if (window.FB) {
-            console.log('subscribe')
             window.FB.Event.subscribe('auth.login', (response) => {
-                let userId = response.authResponse.userID;
-                console.log(userId)
-                console.log('login')
-                
                 getData();
             });
         } else {
-            setTimeout(() => subscribeToLogin(), 1000)
+            setTimeout(() => facebookLogin(), 1000)
         }
     }
 
     const getData = () => {
-        console.log('get')
         window.FB.api(
             '/me',
             'GET',
             {"fields":"id, name, email"},
             (response) => {
-                console.log(response, 'all I want ')
+                fetchSQl(response)
             }
-        );
+        )
+    }
+
+    const fetchSQl = (data) => {
+        let formData = new FormData();
+        for (let [key, value] of Object.entries(data)){
+            formData.append(key, value)
+        }
+        fetch('http://localhost/backend/login/connectDatabase.php', {
+            method:'POST',
+            mode:'cors',
+            body: formData
+        }).then(response => response.text())
     }
 
     return(
