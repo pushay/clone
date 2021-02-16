@@ -1,14 +1,14 @@
 const InputsText = {
         loginInput : [
-            {name:'username, phone number or email', type:'usephemail'},
-            {name:'password', type:'password'}
+            {name:'username, phone number or email', useAs:'usephemail'},
+            {name:'password', useAs:'password', type:'password'}
         ],
         signInput : [
-            {name:'Mobile Number', type:'number'},
-            {name:'Email', type:'email'},
-            {name:'Full Name', type:'fullName'},
-            {name:'Username', type:'username'},
-            {name:'Password', type:'password'}
+            {name:'mobile Number', useAs:'number', type:'number' },
+            {name:'email', useAs:'email', type:"email"},
+            {name:'full Name', useAs:'fullName', type:'text'},
+            {name:'username', useAs:'username', minLength:2, type:'text'},
+            {name:'password', useAs:'password', minLength:5, type:'password'}
         ]
 }
 
