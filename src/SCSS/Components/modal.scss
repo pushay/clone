@@ -1,0 +1,33 @@
+.modal {
+
+    &--logged {
+        position: absolute;
+        top:35.5%;
+        left:71%;
+    }
+
+    &--signed {
+        position: absolute;
+        top:23.3%;
+        left:63%;
+        width: 335px;
+    }
+
+    &__message {
+        padding: 0.6rem 2rem;
+        margin-bottom: 1rem;
+        background-color: #FF4038;
+        border-radius: 10px;
+        color: #fff;
+        box-shadow: 2px 2px 4px rgb(44, 43, 43);
+        font-weight: bold;
+
+        // &--error {
+        
+        // }
+    
+        &--confirming {
+            border: 1.5px solid greenyellow;
+        }
+    }
+}

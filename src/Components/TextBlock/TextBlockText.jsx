@@ -29,7 +29,7 @@ const TextBlocks = {
             linkText:'Sign up',
             linkBlock:'logSign__link'
         }
-    }
+    },
 }
 
 export default TextBlocks
