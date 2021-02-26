@@ -2,21 +2,72 @@ import React, {useState, useEffect} from 'react';
 import {InputsText} from '../LoginSign/LogSignText';
 import Button from '../Button/Button';
 import { useLocation } from 'react-router-dom'
-
+import { computeHeadingLevel } from '@testing-library/react';
 
 function Form(props){
 
     const [loginForm, setLoginForm] = useState({})
     const [signUpForm, setSignUpForm] = useState({})
     const [buttonDisabled, setButtonState] = useState(true)
+    const [logRedInputs, setLogRedInputs] = useState([])
+    const [signRedInputs, setSignRedInputs] = useState([])
     
     const location = useLocation();
 
     useEffect( () => {
-        if (props.modalMessages.length > 0)
             hidePopUp()
-        validateForm();
+            validateForm();
     },[loginForm, signUpForm, location.pathname])
+
+    useEffect(() => {
+        setLogRedInputs([]);
+        setSignRedInputs([]);
+    }, [ location.pathname ])
+
+
+    const redingInputs = () => {
+        let passRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$', 'gm');
+
+        if (location.pathname === '/'){
+            let loginInputArr = []
+
+            if (loginForm.usephemail < 3){
+                loginInputArr.push(1)
+            } else loginInputArr.push(0)
+            
+            if (!loginForm.password.match(passRegex)){
+                loginInputArr.push(1)
+            } else loginInputArr.push(0)
+            setLogRedInputs(loginInputArr)
+        }
+
+        if(location.pathname === '/signUp'){
+        let signInputArr = []
+
+        if (props.modalMessages.includes('Number has to have 9 digits')){
+            signInputArr.push(1)
+        } else signInputArr.push(0)
+
+        if (props.modalMessages.includes('Invalid email')){
+            signInputArr.push(1)
+        } else signInputArr.push(0)
+
+        if (signUpForm.fullName < 3){
+            signInputArr.push(1)
+        } else signInputArr.push(0)
+
+        if (signUpForm.username < 3){
+            signInputArr.push(1)
+        } else signInputArr.push(0)
+        
+        if (props.modalMessages.includes('Password should have at least one big letter, one number and 8 characters')){
+            signInputArr.push(1)
+        } else signInputArr.push(0)
+        
+        setSignRedInputs(signInputArr)
+        
+      }
+    }
 
     const showPopup = () => {
         let passRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$', 'gm');
@@ -72,7 +123,7 @@ function Form(props){
             
             props.setModalMessages(msgArray)
             setTimeout(()=> {
-                props.setShowModal(true)
+                props.setShowModal(true);
             },1000)
             } 
     }
@@ -151,17 +202,21 @@ function Form(props){
             <form className='form__formArea' id='form'>
                 {InputsText[props.inputs].map((inputType, i)=> {
                     return(
-                        <div className='form__inputArea' key={inputType.name+{i}}>
+                        <div className='form__inputArea' key={inputType+[i]}>
                             <input
+                                style={{
+                                    border: (signRedInputs[i] === 1 || logRedInputs[i] === 1) ? '1px solid red' : '1px solid rgb(180, 173, 173)'
+                                }}
                                 onChange={e => {getForm(inputType.useAs, e.target.value);}}
                                 type={inputType.type ? inputType.type : null} 
                                 name={inputType.name}
                                 className='form__input'
-                                placeholder={inputType.name} />
+                                placeholder={inputType.name}
+                                 />
                         </div>
                         )
                     })}
-                <Button text={location.pathname === '/' ? 'Log in' : 'Sign up'} onClick={()=>{showPopup()}} disabled={buttonDisabled}/>
+                <Button text={location.pathname === '/' ? 'Log in' : 'Sign up'} onClick={() =>{showPopup();redingInputs()}} disabled={buttonDisabled}/>
             </form>
         </div>
     )
