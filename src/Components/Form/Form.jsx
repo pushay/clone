@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {InputsText} from '../LoginSign/LogSignText';
 import Button from '../Button/Button';
 import { useLocation } from 'react-router-dom'
-import { computeHeadingLevel } from '@testing-library/react';
 
 function Form(props){
 
@@ -15,33 +14,30 @@ function Form(props){
     const location = useLocation();
 
     useEffect( () => {
-            hidePopUp()
-            validateForm();
+        hidePopUp()
+        validateForm();
     },[loginForm, signUpForm, location.pathname])
 
-    useEffect(() => {
-        setLogRedInputs([]);
-        setSignRedInputs([]);
-    }, [ location.pathname ])
+    const cleanMessages = () => {
+        props.setModalMessages([])
+        props.setShowModal(false)
+    }
+
+    const cleaningRedInputs = () => {
+        setLogRedInputs([])
+        setSignRedInputs([])
+    }
+    useEffect( ()=>{
+       return () => {
+        cleaningRedInputs()
+        cleanMessages()
+       
+    }},[location.pathname])
 
 
     const redingInputs = () => {
-        let passRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$', 'gm');
 
-        if (location.pathname === '/'){
-            let loginInputArr = []
-
-            if (loginForm.usephemail < 3){
-                loginInputArr.push(1)
-            } else loginInputArr.push(0)
-            
-            if (!loginForm.password.match(passRegex)){
-                loginInputArr.push(1)
-            } else loginInputArr.push(0)
-            setLogRedInputs(loginInputArr)
-        }
-
-        if(location.pathname === '/signUp'){
+        if (location.pathname === '/signUp'){
         let signInputArr = []
 
         if (props.modalMessages.includes('Number has to have 9 digits')){
@@ -64,10 +60,16 @@ function Form(props){
             signInputArr.push(1)
         } else signInputArr.push(0)
         
-        setSignRedInputs(signInputArr)
-        
-      }
+        setTimeout(()=> {
+            setSignRedInputs(signInputArr)
+        },1000)
+
+        setTimeout(()=> {
+            setSignRedInputs([])
+        },10000)
+
     }
+}
 
     const showPopup = () => {
         let passRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$', 'gm');
@@ -76,13 +78,23 @@ function Form(props){
         if (location.pathname === '/'){
             let messageArray = props.modalMessages;
 
-            if (loginForm.usephemail || loginForm.password){
-                if ((loginForm.usephemail && loginForm.usephemail.length <= 3) || (loginForm.password && loginForm.password.length <= 3)){
-                    if (!messageArray.includes('Please complete the form')){
-                        messageArray.push('Please complete the form')
+            if (loginForm.usephemail){
+                if (loginForm.usephemail.length < 3){
+                    if (!messageArray.includes('Please correct login')){
+                        messageArray.push('Please correct login')
                     }
                 }
             }
+
+            if (loginForm.password){
+                if (loginForm.password.length <3){
+                    if (!messageArray.includes('Password should have at least one big letter, one number and 8 characters')){
+                        messageArray.push('Password should have at least one big letter, one number and 8 characters')
+                    }
+                }
+            }
+
+
             props.setModalMessages(messageArray)
             setTimeout(()=> {
                 props.setShowModal(true)
@@ -93,28 +105,28 @@ function Form(props){
             let msgArray = props.modalMessages;
 
             if (signUpForm.number){
-                if (signUpForm.number && signUpForm.number.length !=9 ){
+                if (signUpForm.number.length !=9 ){
                     if (!msgArray.includes('Number has to have 9 digits')){
                         msgArray.push('Number has to have 9 digits')
                     }
                 }
             }
             if (signUpForm.email){
-                if (signUpForm.email && !signUpForm.email.match(emailRegex)){
+                if (!signUpForm.email.match(emailRegex)){
                     if (!msgArray.includes('Invalid email')){
                         msgArray.push('Invalid email')
                     }
                 } 
             }
             if (signUpForm.fullName || signUpForm.username){
-                if (signUpForm.fullName && signUpForm.fullName.length < 3){
+                if (signUpForm.username.length < 3 || signUpForm.fullName.length < 3){
                     if (!msgArray.includes('Fullname and username should have at least 3 letters')){
                         msgArray.push('Fullname and username should have at least 3 letters')
                     }
                 } 
             }
             if (signUpForm.password){
-                if (signUpForm.password && !signUpForm.password.match(passRegex)){
+                if (!signUpForm.password.match(passRegex)){
                     if (!msgArray.includes('Password should have at least one big letter, one number and 8 characters')){
                         msgArray.push('Password should have at least one big letter, one number and 8 characters')
                     }
@@ -136,12 +148,22 @@ function Form(props){
 
             let messageArray = props.modalMessages;
 
-            if ((loginForm.usephemail && loginForm.usephemail.length >= 3) && (loginForm.password && loginForm.usephemail.password >= 3 && loginForm.password.match(passRegex))){
-                let newArray = messageArray.filter(element => element !== 'Please complete the form')
-                messageArray = newArray;
-                props.setModalMessages(messageArray)
+            if (loginForm.usephemail){
+                if ((loginForm.usephemail.length >= 3)){
+                    let newArray = messageArray.filter(element => element !== 'Please correct login')
+                    messageArray = newArray;
+                }
             }
-        }
+
+            if (loginForm.password){
+                if (loginForm.password.length >= 3){
+                    let newArray = messageArray.filter(element => element !== 'Password should have at least one big letter, one number and 8 characters')
+                    messageArray = newArray;
+                }
+            }
+
+            props.setModalMessages(messageArray)
+            }
 
         if (location.pathname === '/signUp'){
             let msgArray = props.modalMessages;
@@ -202,7 +224,7 @@ function Form(props){
             <form className='form__formArea' id='form'>
                 {InputsText[props.inputs].map((inputType, i)=> {
                     return(
-                        <div className='form__inputArea' key={inputType+[i]}>
+                        <div className='form__inputArea' key={[props.inputs]+inputType.name+[i]}>
                             <input
                                 style={{
                                     border: (signRedInputs[i] === 1 || logRedInputs[i] === 1) ? '1px solid red' : '1px solid rgb(180, 173, 173)'

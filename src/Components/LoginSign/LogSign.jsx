@@ -72,7 +72,7 @@ function LogSign(props){
                 </div>
                 <TextBlock text={props.textBlock}/>
             </div>
-            {showModal === true ? <Modal modalClass={location.pathname === '/' ? 'modal modal--logged' : 'modal--signed' } key={modalMessages.length} class='modal__message modal__message--error' messages={modalMessages}/>  : null}
+            {showModal === true ? <Modal modalClass={location.pathname === '/' ? 'modal modal--logged' : 'modal modal--signed' } key={modalMessages.length} class='modal__message modal__message--error' messages={modalMessages}/>  : null}
 
         </div>
     )
