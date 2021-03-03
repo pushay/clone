@@ -39,14 +39,15 @@ function LogSign(props){
     }
 
     const fetchSQl = (data) => {
-        let formData = new FormData();
+        let fbLogin = new FormData();
         for (let [key, value] of Object.entries(data)){
-            formData.append(key, value)
+            fbLogin.append(key, value)
         }
-        fetch('http://localhost/backend/login/connectDatabase.php', {
+        fbLogin.append('type', 'fbLogin')
+        fetch('http://localhost/backend/auth/login.php', {
             method:'POST',
             mode:'cors',
-            body: formData
+            body: fbLogin
         }).then(response => response.text())
     }
 

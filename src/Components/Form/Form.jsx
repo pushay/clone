@@ -10,6 +10,7 @@ function Form(props){
     const [buttonDisabled, setButtonState] = useState(true)
     const [logRedInputs, setLogRedInputs] = useState([])
     const [signRedInputs, setSignRedInputs] = useState([])
+    const [readyForm, setReadyForm] = useState(false)
     
     const location = useLocation();
 
@@ -18,9 +19,27 @@ function Form(props){
         validateForm();
     },[loginForm, signUpForm, location.pathname])
 
+    useEffect ( () => {
+        const login = 'http://localhost/backend/auth/login.php';
+        const sign = 'http://localhost/backend/auth/signup.php'
+
+        if (location.pathname === '/'){
+            postSignUpForm(loginForm, 'login', login)
+        }
+        if (location.pathname === '/signUp'){
+            postSignUpForm(signUpForm, 'signUp', sign)
+        }
+    },[readyForm])
+
     const cleanMessages = () => {
         props.setModalMessages([])
         props.setShowModal(false)
+    }
+
+    const clearForm = () => {
+        document.querySelectorAll('input').forEach(el => el.value = '')
+        setSignUpForm({})
+        setLoginForm({})
     }
 
     const cleaningRedInputs = () => {
@@ -88,8 +107,8 @@ function Form(props){
 
             if (loginForm.password){
                 if (loginForm.password.length <3){
-                    if (!messageArray.includes('Password should have at least one big letter, one number and 8 characters')){
-                        messageArray.push('Password should have at least one big letter, one number and 8 characters')
+                    if (!messageArray.includes('Password should have at least one big letter, one number and 3 characters')){
+                        messageArray.push('Password should have at least one big letter, one number and 3 characters')
                     }
                 }
             }
@@ -127,8 +146,8 @@ function Form(props){
             }
             if (signUpForm.password){
                 if (!signUpForm.password.match(passRegex)){
-                    if (!msgArray.includes('Password should have at least one big letter, one number and 8 characters')){
-                        msgArray.push('Password should have at least one big letter, one number and 8 characters')
+                    if (!msgArray.includes('Password should have at least one big letter, one number and 3 characters')){
+                        msgArray.push('Password should have at least one big letter, one number and 3 characters')
                     }
                 }
             }
@@ -157,11 +176,10 @@ function Form(props){
 
             if (loginForm.password){
                 if (loginForm.password.length >= 3){
-                    let newArray = messageArray.filter(element => element !== 'Password should have at least one big letter, one number and 8 characters')
+                    let newArray = messageArray.filter(element => element !== 'Password should have at least one big letter, one number and 3 characters')
                     messageArray = newArray;
                 }
             }
-
             props.setModalMessages(messageArray)
             }
 
@@ -182,7 +200,7 @@ function Form(props){
                 msgArray = newArray; 
             }
             if (signUpForm.password && signUpForm.password.match(passRegex)){
-                let newArray  = msgArray.filter(elem => elem !== 'Password should have at least one big letter, one number and 8 characters')
+                let newArray  = msgArray.filter(elem => elem !== 'Password should have at least one big letter, one number and 3 characters')
                 msgArray = newArray; 
             }
             props.setModalMessages(msgArray)
@@ -219,6 +237,35 @@ function Form(props){
         }
     }
 
+    const checkForm = () => {
+        if (props.modalMessages.length == 0){
+            setReadyForm(true)
+        }
+    }
+
+    const postSignUpForm = (form, formType, http) => {
+       if (readyForm === true){
+
+        let formData = new FormData()
+        for (let [key, value] of Object.entries(form)){
+            formData.append(key, value)
+        }
+        formData.append('type', formType);
+        fetch(http, {
+            method: 'POST', // or 'PUT'
+            mode:'cors',
+            body: formData
+            })
+            .then(response => response.text()).then( () => {clearForm()})
+       }
+    }
+
+    const buttonFunctionWrapper = () => {
+        showPopup()
+        redingInputs()
+        checkForm()
+    }
+
     return(
         <div className='form__formContainer'>
             <form className='form__formArea' id='form'>
@@ -238,7 +285,7 @@ function Form(props){
                         </div>
                         )
                     })}
-                <Button text={location.pathname === '/' ? 'Log in' : 'Sign up'} onClick={() =>{showPopup();redingInputs()}} disabled={buttonDisabled}/>
+                <Button text={location.pathname === '/' ? 'Log in' : 'Sign up'} onClick={() =>{buttonFunctionWrapper()}} disabled={buttonDisabled}/>
             </form>
         </div>
     )

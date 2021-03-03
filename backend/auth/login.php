@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin:*");
 header('Access-Control-Allow-Methods: POST,GET,OPTIONS');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
-function connectWithSql(){
+function login(){
 
     $connection = new mysqli('localhost', 'root', '', 'clone');
     
@@ -12,12 +12,17 @@ function connectWithSql(){
         die('Connection failed' . $connection->connect_error);
     
     }
-    $query = "INSERT INTO users Values(NULL, '$_POST[id]' , '$_POST[name]') , '$_POST[email]' ";
+    if ($_POST['type'] == 'fbLogin'){
+        $query = "INSERT INTO users(facebookId, full_name, email) 
+        Values('$_POST[id]' , '$_POST[name]' , '$_POST[email]') ";
+    }
+
+    echo($query);
+
     $connection->query($query);
     
     $connection->close();
-}
-    if (isset($_POST['id']) AND isset($_POST['email']) AND isset($_POST['name'])){
-        connectWithSql();
-    }
+
+}   
+    login();
 ?>
