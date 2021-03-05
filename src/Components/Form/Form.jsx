@@ -10,7 +10,6 @@ function Form(props){
     const [buttonDisabled, setButtonState] = useState(true)
     const [logRedInputs, setLogRedInputs] = useState([])
     const [signRedInputs, setSignRedInputs] = useState([])
-    const [readyForm, setReadyForm] = useState(false)
     
     const location = useLocation();
 
@@ -18,18 +17,6 @@ function Form(props){
         hidePopUp()
         validateForm();
     },[loginForm, signUpForm, location.pathname])
-
-    useEffect ( () => {
-        const login = 'http://localhost/backend/auth/login.php';
-        const sign = 'http://localhost/backend/auth/signup.php'
-
-        if (location.pathname === '/'){
-            postSignUpForm(loginForm, 'login', login)
-        }
-        if (location.pathname === '/signUp'){
-            postSignUpForm(signUpForm, 'signUp', sign)
-        }
-    },[readyForm])
 
     const cleanMessages = () => {
         props.setModalMessages([])
@@ -239,25 +226,36 @@ function Form(props){
 
     const checkForm = () => {
         if (props.modalMessages.length == 0){
-            setReadyForm(true)
+
+            const login = 'http://localhost/backend/auth/login.php'
+            const sign = 'http://localhost/backend/auth/signup.php'
+
+            if (location.pathname === '/'){
+            postSignUpForm(loginForm, 'login', login)
+            }
+
+            if (location.pathname === '/signUp'){
+            postSignUpForm(signUpForm, 'signUp', sign)
+            }
         }
     }
 
     const postSignUpForm = (form, formType, http) => {
-       if (readyForm === true){
 
         let formData = new FormData()
         for (let [key, value] of Object.entries(form)){
             formData.append(key, value)
         }
+
         formData.append('type', formType);
         fetch(http, {
             method: 'POST', // or 'PUT'
             mode:'cors',
             body: formData
             })
-            .then(response => response.text()).then( () => {clearForm()})
-       }
+            .then(response => response.text()).then((res) => {
+                clearForm();
+            })
     }
 
     const buttonFunctionWrapper = () => {
