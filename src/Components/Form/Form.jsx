@@ -240,6 +240,27 @@ function Form(props){
         }
     }
 
+    const changeFormIfDataExists = (response) => {
+        let messageArray = props.modalMessages;
+
+        if (response.usernameExists){
+            messageArray.push("This username's already taken. Please change username")
+        }
+        if (response.emailExists){
+            messageArray.push("This email's already connected to the account. Please login instead or use another one.")
+        }
+        props.setModalMessages(messageArray)
+
+        setTimeout(()=> {
+            props.setShowModal(true);
+        },1000)
+
+        setTimeout(()=> {
+            cleanMessages()
+        },7000)
+
+    }
+
     const postSignUpForm = (form, formType, http) => {
 
         let formData = new FormData()
@@ -253,9 +274,14 @@ function Form(props){
             mode:'cors',
             body: formData
             })
-            .then(response => response.text()).then((res) => {
-                clearForm();
-            })
+            .then(response => response.json()).then((response) => {
+
+                if (response.registered){
+                    clearForm();
+
+                } else changeFormIfDataExists(response)
+            }
+            )
     }
 
     const buttonFunctionWrapper = () => {
