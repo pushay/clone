@@ -3,13 +3,13 @@ import ImageSlider from '../ImageSlider/ImageSlider';
 import TextBlock from '../TextBlock/TextBlock';
 import TextBlockTexts from '../TextBlock/TextBlockText';
 import Form from '../Form/Form';
-import Modal from '../Modal/Modal';
 import { useLocation } from 'react-router-dom'
+import PopUp from '../PopUp/PopUp';
 
 function LogSign(props){
 
-   const [showModal, setShowModal] = useState(false)
-   const [modalMessages, setModalMessages] = useState([])
+   const [showPopUp, setShowPopUp] = useState(false)
+   const [popUpMessages, setPopUpMessages] = useState([])
 
     useEffect(() => {
         facebookLogin();
@@ -52,7 +52,7 @@ function LogSign(props){
     }
 
     return(
-        <div className='logSign' style={{padding:props.inputs === 'loginInput' ? '11.5rem 2rem' : '5.5rem 2rem'}}>
+        <div className='logSign' style={{padding:props.inputs === 'loginInput' ? '11.5rem 2rem' : '6.1rem 2rem'}}>
             {props.imageSlider === 'login' ? 
                 <ImageSlider imageSlider='login'/>
             : null 
@@ -61,7 +61,7 @@ function LogSign(props){
             className="logSign__Instagram">
                 <div className='logSign__log'>
                     <TextBlock text={TextBlockTexts.textBlock1} />
-                    <Form inputs={props.inputs} showModal={showModal} setModalMessages={setModalMessages} modalMessages={modalMessages}  setShowModal={setShowModal}/>
+                    <Form inputs={props.inputs} showPopUp={showPopUp} buttonName={props.buttonName} inputClass='form__input form__input--form' setPopUpMessages={setPopUpMessages} popUpMessages={popUpMessages} button  setShowPopUp={setShowPopUp}/>
                     <span className='logSign__divide'>OR</span>
                     <div className="fb-login-button logSign__facebook" data-width="278" data-size="large" data-button-type="continue_with" 
                     data-layout="default" data-auto-logout-link="true" data-use-continue-as="false" data-scope="email">
@@ -73,8 +73,9 @@ function LogSign(props){
                 </div>
                 <TextBlock text={props.textBlock}/>
             </div>
-            {showModal === true ? <Modal modalClass={location.pathname === '/' ? 'modal modal--logged' : 'modal modal--signed' } key={modalMessages.length} class='modal__message modal__message--error' messages={modalMessages}/>  : null}
-
+            {showPopUp === true ? 
+            <PopUp popUpClass={location.pathname === '/' ? 'popUp popUp--logged' : 'popUp popUp--signed' } key={popUpMessages.length} class='popUp__message popUp__message--error' messages={popUpMessages}/>  
+            : null}
         </div>
     )
 }

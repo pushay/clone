@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {InputsText} from '../LoginSign/LogSignText';
 import Button from '../Button/Button';
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Form(props){
 
@@ -12,15 +13,18 @@ function Form(props){
     const [signRedInputs, setSignRedInputs] = useState([])
     
     const location = useLocation();
+    const history = useHistory();
 
     useEffect( () => {
-        hidePopUp()
-        validateForm();
+        if (location.pathname === '/' || location.pathname === '/signUp'){
+            hidePopUp()
+            validateForm();
+        } 
     },[loginForm, signUpForm, location.pathname])
 
     const cleanMessages = () => {
-        props.setModalMessages([])
-        props.setShowModal(false)
+        props.setPopUpMessages([])
+        props.setShowPopUp(false)
     }
 
     const clearForm = () => {
@@ -46,11 +50,11 @@ function Form(props){
         if (location.pathname === '/signUp'){
         let signInputArr = []
 
-        if (props.modalMessages.includes('Number has to have 9 digits')){
+        if (props.popUpMessages.includes('Number has to have 9 digits')){
             signInputArr.push(1)
         } else signInputArr.push(0)
 
-        if (props.modalMessages.includes('Invalid email')){
+        if (props.popUpMessages.includes('Invalid email')){
             signInputArr.push(1)
         } else signInputArr.push(0)
 
@@ -62,7 +66,7 @@ function Form(props){
             signInputArr.push(1)
         } else signInputArr.push(0)
         
-        if (props.modalMessages.includes('Password should have at least one big letter, one number and 8 characters')){
+        if (props.popUpMessages.includes('Password should have at least one big letter, one number and 8 characters')){
             signInputArr.push(1)
         } else signInputArr.push(0)
         
@@ -82,7 +86,7 @@ function Form(props){
         let emailRegex = new RegExp('.+@.{2,15}\..{1,15}')
 
         if (location.pathname === '/'){
-            let messageArray = props.modalMessages;
+            let messageArray = props.popUpMessages;
 
             if (loginForm.usephemail){
                 if (loginForm.usephemail.length < 3){
@@ -101,14 +105,14 @@ function Form(props){
             }
 
 
-            props.setModalMessages(messageArray)
+            props.setPopUpMessages(messageArray)
             setTimeout(()=> {
-                props.setShowModal(true)
+                props.setShowPopUp(true)
             },1000)
         }
 
         if (location.pathname === '/signUp'){
-            let msgArray = props.modalMessages;
+            let msgArray = props.popUpMessages;
 
             if (signUpForm.number){
                 if (signUpForm.number.length !=9 ){
@@ -139,9 +143,9 @@ function Form(props){
                 }
             }
             
-            props.setModalMessages(msgArray)
+            props.setPopUpMessages(msgArray)
             setTimeout(()=> {
-                props.setShowModal(true);
+                props.setShowPopUp(true);
             },1000)
             } 
     }
@@ -152,7 +156,7 @@ function Form(props){
 
         if (location.pathname === '/'){
 
-            let messageArray = props.modalMessages;
+            let messageArray = props.popUpMessages;
 
             if (loginForm.usephemail){
                 if ((loginForm.usephemail.length >= 3)){
@@ -167,11 +171,11 @@ function Form(props){
                     messageArray = newArray;
                 }
             }
-            props.setModalMessages(messageArray)
+            props.setPopUpMessages(messageArray)
             }
 
         if (location.pathname === '/signUp'){
-            let msgArray = props.modalMessages;
+            let msgArray = props.popUpMessages;
 
             if (signUpForm.number && signUpForm.number.length == 9 ){
                 let newArray  = msgArray.filter(elem => elem !== 'Number has to have 9 digits')
@@ -190,7 +194,7 @@ function Form(props){
                 let newArray  = msgArray.filter(elem => elem !== 'Password should have at least one big letter, one number and 3 characters')
                 msgArray = newArray; 
             }
-            props.setModalMessages(msgArray)
+            props.setPopUpMessages(msgArray)
         }
     }
 
@@ -225,7 +229,7 @@ function Form(props){
     }
 
     const checkForm = () => {
-        if (props.modalMessages.length == 0){
+        if (props.popUpMessages.length == 0){
 
             const login = 'http://localhost/backend/auth/login.php'
             const sign = 'http://localhost/backend/auth/signup.php'
@@ -241,7 +245,7 @@ function Form(props){
     }
 
     const changeFormIfDataExists = (response) => {
-        let messageArray = props.modalMessages;
+        let messageArray = props.popUpMessages;
 
         if (response.usernameExists){
             messageArray.push("This username's already taken. Please change username")
@@ -249,10 +253,10 @@ function Form(props){
         if (response.emailExists){
             messageArray.push("This email's already connected to the account. Please login instead or use another one.")
         }
-        props.setModalMessages(messageArray)
+        props.setPopUpMessages(messageArray)
 
         setTimeout(()=> {
-            props.setShowModal(true);
+            props.setShowPopUp(true);
         },1000)
 
         setTimeout(()=> {
@@ -275,9 +279,9 @@ function Form(props){
             body: formData
             })
             .then(response => response.json()).then((response) => {
-
                 if (response.registered){
                     clearForm();
+                    history.push('/confirm')
 
                 } else changeFormIfDataExists(response)
             }
@@ -303,13 +307,16 @@ function Form(props){
                                 onChange={e => {getForm(inputType.useAs, e.target.value);}}
                                 type={inputType.type ? inputType.type : null} 
                                 name={inputType.name}
-                                className='form__input'
+                                className={props.inputClass}
                                 placeholder={inputType.name}
                                  />
                         </div>
                         )
                     })}
-                <Button text={location.pathname === '/' ? 'Log in' : 'Sign up'} onClick={() =>{buttonFunctionWrapper()}} disabled={buttonDisabled}/>
+                {props.button ? 
+                <Button buttonText={props.buttonName} buttonClass='button button--form' onClick={() =>{buttonFunctionWrapper()}} disabled={buttonDisabled}/>
+                : null
+                }   
             </form>
         </div>
     )

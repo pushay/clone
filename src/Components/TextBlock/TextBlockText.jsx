@@ -3,7 +3,7 @@ const TextBlocks = {
         textBlockDiv:'',
         heading:{
             textHeader:'InstagramClone',
-            textBlockHeading:'textBlock__header'
+            textBlockHeading:'textBlock__header textBlock__header--primary'
         },
     },
     textBlock2: {
@@ -30,6 +30,25 @@ const TextBlocks = {
             linkBlock:'textBlock__link'
         }
     },
+    textBlock4:{
+        textBlockDiv:'textBlock__container',
+        heading:{
+            textHeader:'InstagramClone',
+            textBlockHeading:'textBlock__header textBlock__header--primary'
+        },
+        paragraph:{
+            paragraph:"We've sent you an email with verification code. Please go to your email to activate an account.",
+            textBlockParagraph:'textBlock__paragraph textBlock__paragraph--centered'
+        },
+    },
+    textBlock5:{
+        textBlockDiv:'textBlock__container',
+        heading:{
+            textHeader:'Insert code here',
+            textBlockHeading:'textBlock__header textBlock__header--secondary'
+        },
+        
+    }
 }
 
 export default TextBlocks

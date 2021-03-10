@@ -1,12 +1,21 @@
 .textBlock {
 
     &__header {
-        font-size: 3.4rem;
-        font-family: 'Cookie', cursive;
         display: flex;
         justify-content: center;
-        margin: 0rem 2rem 1.5rem 2rem;
-        color: rgb(44, 42, 42);
+
+        &--primary {
+          font-size: 3.4rem;
+          font-family: 'Cookie', cursive;
+          color: rgb(44, 42, 42);
+          margin: 0rem 2rem 1.5rem 2rem;
+        }
+
+        &--secondary {
+          font-size: 1.6rem;
+          color: rgb(78, 75, 75);
+          margin:0rem 2rem 0rem 2rem;
+        }
       }
 
       &__question {
@@ -17,12 +26,28 @@
         background-color: #fff;
         padding: 2.5rem 1rem;
         width: 320px;
+
+        &--column {
+          flex-direction: column;
+        }
+       }
+
+       &__container {
+         display: flex;
+         flex-direction: column;
+         margin-bottom: 1.5rem;
+         align-items: center;
        }
 
     &__paragraph {
-
+        
         &--question {
             margin-right: 0.5rem;
+        }
+
+        &--centered {
+          text-align: center;
+          width: 250px;
         }
     }
 
@@ -33,4 +58,14 @@
         cursor: pointer;
         font-size: 1.1rem;
       }
+
+    &__confirmEmail {
+        background-color: #fff;
+      padding: 2.5rem 1.5rem;
+      border: 1px solid rgb(207, 199, 199);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
 }

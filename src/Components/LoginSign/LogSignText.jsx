@@ -9,6 +9,9 @@ const InputsText = {
             {name:'full Name', useAs:'fullName', type:'text'},
             {name:'username', useAs:'username', minLength:2, type:'text'},
             {name:'password', useAs:'password', minLength:5, type:'password'}
+        ],
+        confirmInput:[
+            {name:'Enter code', useAs:'addad', type:'number'}
         ]
 }
 

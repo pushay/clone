@@ -1,16 +1,24 @@
 .button {
-    margin-top: 1rem;
     font-family: inherit;
     border: none;
     box-shadow: 1px 1px 4px rgb(80, 78, 78);
     border-radius: 5px;
-    height: 37px;
-    width: 280px;
     color: #fff;
     font-weight: bold;
     background-color: #287ae6;
     font-size: 1.1rem;
     cursor: pointer;
+
+    &--form {
+        margin-top: 1rem;
+        height: 37px;
+        width: 280px;
+    }
+
+    &--confirm {
+        height: 35px;
+        width: 170px
+    }
 
     &:focus {
         outline: none;

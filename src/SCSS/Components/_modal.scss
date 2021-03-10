@@ -1,0 +1,11 @@
+.modal {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   background-color:rgb(248, 245, 245);
+
+    &--confirmEmail {
+        padding: 15rem 2rem;
+    }
+}
