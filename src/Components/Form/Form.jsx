@@ -38,10 +38,11 @@ function Form(props){
         setSignRedInputs([])
     }
     useEffect( ()=>{
-       return () => {
-        cleaningRedInputs()
-        cleanMessages()
-       
+        if (location.pathname === '/' || location.pathname === '/signUp'){
+            return () => {
+                cleaningRedInputs()
+                cleanMessages()
+        } 
     }},[location.pathname])
 
 
@@ -226,6 +227,9 @@ function Form(props){
         if (location.pathname === '/signUp') {
             setSignUpForm({...signUpForm, [input]:inputValue})
         }
+        if (location.pathname === '/message'){
+            props.setVerificationCodeInput(inputValue)
+        }
     }
 
     const checkForm = () => {
@@ -281,7 +285,7 @@ function Form(props){
             .then(response => response.json()).then((response) => {
                 if (response.registered){
                     clearForm();
-                    history.push('/confirm')
+                    history.push('/message')
 
                 } else changeFormIfDataExists(response)
             }

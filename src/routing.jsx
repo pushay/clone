@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Switch } from 'react-router-dom';
 import LogSign from './Components/LoginSign/LogSign';
 import TextBlocks from './Components/TextBlock/TextBlockText';
-import Modal from './Components/Modal/Modal';
+import Message from './Components/Message/Message';
 
 function Routing(){
     return(
@@ -13,8 +13,8 @@ function Routing(){
             <Route path="/signUp">
                 <LogSign inputs='signInput' buttonName='Log in' textBlock={TextBlocks.textBlock2} question='login'/>
             </Route>
-            <Route path="/confirm">
-                <Modal modaldivClass='modal modal--confirmEmail' button buttonName='Continue' inputClass='form__input form__input--confirm' textBlock={TextBlocks.textBlock4} form />
+            <Route path="/message">
+                <Message modaldivClass='message message--confirmEmail' textBlock1={TextBlocks.textBlock4} textBlock2={TextBlocks.textBlock5} button buttonName='Continue' buttonName1='Send code again' quantity='2' inputClass='form__input form__input--confirm' textBlock={TextBlocks.textBlock4} form />
             </Route>
         </Switch>
     )

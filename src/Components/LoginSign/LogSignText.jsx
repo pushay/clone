@@ -11,7 +11,7 @@ const InputsText = {
             {name:'password', useAs:'password', minLength:5, type:'password'}
         ],
         confirmInput:[
-            {name:'Enter code', useAs:'addad', type:'number'}
+            {name:'Enter code', useAs:'verificationCode', type:'number'}
         ]
 }
 

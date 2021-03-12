@@ -46,6 +46,13 @@ const TextBlocks = {
         heading:{
             textHeader:'Insert code here',
             textBlockHeading:'textBlock__header textBlock__header--secondary'
+        },  
+    },
+    textBlock6:{
+        textBlockDiv:'textBlock__container',
+        heading:{
+            textHeader:"Didn't get an email?",
+            textBlockHeading:'textBlock__header textBlock__header--secondary'
         },
         
     }
