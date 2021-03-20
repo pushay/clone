@@ -285,11 +285,10 @@ function Form(props){
             .then(response => response.json()).then((response) => {
                 if (response.registered){
                     clearForm();
-                    history.push('/message')
+                    history.push('/signUp/message')
 
                 } else changeFormIfDataExists(response)
-            }
-            )
+            })
     }
 
     const buttonFunctionWrapper = () => {

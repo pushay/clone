@@ -8,12 +8,12 @@ function Routing(){
     return(
         <Switch>
             <Route exact path="/">
-                <LogSign imageSlider='login' buttonName='Sign up' textBlock={TextBlocks.textBlock3} inputs='loginInput' question='signup'/>
+                <LogSign imageSlider='login' buttonName='login in' textBlock={TextBlocks.textBlock3} inputs='loginInput' question='signup'/>
             </Route>
-            <Route path="/signUp">
-                <LogSign inputs='signInput' buttonName='Log in' textBlock={TextBlocks.textBlock2} question='login'/>
+            <Route exact path="/signUp">
+                <LogSign inputs='signInput' buttonName='Sign up' textBlock={TextBlocks.textBlock2} question='login'/>
             </Route>
-            <Route path="/message">
+            <Route path="/signUp/message">
                 <Message modaldivClass='message message--confirmEmail' textBlock1={TextBlocks.textBlock4} textBlock2={TextBlocks.textBlock5} button buttonName='Continue' buttonName1='Send code again' quantity='2' inputClass='form__input form__input--confirm' textBlock={TextBlocks.textBlock4} form />
             </Route>
         </Switch>
