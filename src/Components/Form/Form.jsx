@@ -248,7 +248,6 @@ function Form(props){
             }
         }
         if (location.pathname === '/signUp/message'){
-            console.log('innn')
             postSignUpForm(verificationCode, 'verificateCode', sign)
         }
     }
@@ -281,26 +280,19 @@ function Form(props){
             formData.append(key, value)
         }
         formData.append('type', formType);
-        console.log(form, formType, http);
-        console.log('jestem tu')
         fetch(http, {
             method: 'POST',
             mode:'cors',
             body: formData
             })
             .then(response => response.json()).then((response) => {
-                console.log(response)
                 if (location.pathname === '/signUp'){
                     if (response.registered){
-                        console.log('registered')
                         clearForm();
                         history.push('/signUp/message')
                     } else changeFormIfDataExists(response)
                 }
-                console.log('between')
                 if (location.pathname === '/signUp/message'){
-                    console.log(response)
-                    console.log('in verificationCode!')
                 }
             })
     }
