@@ -61,7 +61,7 @@ function LogSign(props){
             className="logSign__Instagram">
                 <div className='logSign__log'>
                     <TextBlock text={TextBlockTexts.textBlock1} />
-                    <Form inputs={props.inputs} showPopUp={showPopUp} buttonName={props.buttonName} inputClass='form__input form__input--form' setPopUpMessages={setPopUpMessages} popUpMessages={popUpMessages} button  setShowPopUp={setShowPopUp}/>
+                    <Form inputs={props.inputs} showPopUp={showPopUp} buttonName={props.buttonName} inputClass='form__input form__input--form' setPopUpMessages={setPopUpMessages} popUpMessages={popUpMessages} button buttonClass='button button--form'  setShowPopUp={setShowPopUp}/>
                     <span className='logSign__divide'>OR</span>
                     <div className="fb-login-button logSign__facebook" data-width="278" data-size="large" data-button-type="continue_with" 
                     data-layout="default" data-auto-logout-link="true" data-use-continue-as="false" data-scope="email">

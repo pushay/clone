@@ -11,6 +11,7 @@ function Form(props){
     const [buttonDisabled, setButtonState] = useState(true)
     const [logRedInputs, setLogRedInputs] = useState([])
     const [signRedInputs, setSignRedInputs] = useState([])
+    const [verificationCode, setVerificationCodeInput] = useState({})
     
     const location = useLocation();
     const history = useHistory();
@@ -77,7 +78,7 @@ function Form(props){
 
         setTimeout(()=> {
             setSignRedInputs([])
-        },10000)
+        },6000)
 
     }
 }
@@ -227,16 +228,16 @@ function Form(props){
         if (location.pathname === '/signUp') {
             setSignUpForm({...signUpForm, [input]:inputValue})
         }
-        if (location.pathname === '/message'){
-            props.setVerificationCodeInput(inputValue)
+        if (location.pathname === '/signUp/message'){
+            setVerificationCodeInput({...verificationCode, [input]:inputValue})
         }
     }
 
     const checkForm = () => {
-        if (props.popUpMessages.length == 0){
+        const login = 'http://localhost/backend/auth/login.php'
+        const sign = 'http://localhost/backend/auth/signup.php'
 
-            const login = 'http://localhost/backend/auth/login.php'
-            const sign = 'http://localhost/backend/auth/signup.php'
+        if (props.popUpMessages && props.popUpMessages.length == 0){
 
             if (location.pathname === '/'){
             postSignUpForm(loginForm, 'login', login)
@@ -245,6 +246,10 @@ function Form(props){
             if (location.pathname === '/signUp'){
             postSignUpForm(signUpForm, 'signUp', sign)
             }
+        }
+        if (location.pathname === '/signUp/message'){
+            console.log('innn')
+            postSignUpForm(verificationCode, 'verificateCode', sign)
         }
     }
 
@@ -275,26 +280,37 @@ function Form(props){
         for (let [key, value] of Object.entries(form)){
             formData.append(key, value)
         }
-
         formData.append('type', formType);
+        console.log(form, formType, http);
+        console.log('jestem tu')
         fetch(http, {
             method: 'POST',
             mode:'cors',
             body: formData
             })
             .then(response => response.json()).then((response) => {
-                if (response.registered){
-                    clearForm();
-                    history.push('/signUp/message')
-
-                } else changeFormIfDataExists(response)
+                console.log(response)
+                if (location.pathname === '/signUp'){
+                    if (response.registered){
+                        console.log('registered')
+                        clearForm();
+                        history.push('/signUp/message')
+                    } else changeFormIfDataExists(response)
+                }
+                console.log('between')
+                if (location.pathname === '/signUp/message'){
+                    console.log(response)
+                    console.log('in verificationCode!')
+                }
             })
     }
 
     const buttonFunctionWrapper = () => {
-        showPopup()
-        redingInputs()
-        checkForm()
+        if (location.pathname === '/' || location.pathname === '/signUp'){
+            showPopup()
+            redingInputs()
+            checkForm()
+        } else checkForm()
     }
 
     return(
@@ -317,7 +333,7 @@ function Form(props){
                         )
                     })}
                 {props.button ? 
-                <Button buttonText={props.buttonName} buttonClass='button button--form' onClick={() =>{buttonFunctionWrapper()}} disabled={buttonDisabled}/>
+                <Button buttonText={props.buttonName} buttonClass={props.buttonClass} onClick={() =>{buttonFunctionWrapper()}} disabled={location.pathname === '/' || location.pathname === '/signUp'? buttonDisabled : null}/>
                 : null
                 }   
             </form>
