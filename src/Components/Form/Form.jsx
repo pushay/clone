@@ -278,7 +278,7 @@ function Form(props){
 
         formData.append('type', formType);
         fetch(http, {
-            method: 'POST', // or 'PUT'
+            method: 'POST',
             mode:'cors',
             body: formData
             })
