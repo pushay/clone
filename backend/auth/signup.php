@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception; 
 
 function connectToDb() {
-    // ENV
+
     $connection = new mysqli('localhost', 'root', '', 'clone');
     
     if ($connection->connect_error){
@@ -47,17 +47,18 @@ function checkIfUserExists($connection) {
     }
     return false;
 }
-
 function signup($connection){
    
     if (isset($_POST['type']) && $_POST['type'] == 'signUp'){
 
-        $query = sprintf("INSERT INTO users(full_name, email, number, username, password)  VALUES('%s', '%s', '%d', '%s', '%s')",
+        $query = sprintf("INSERT INTO users(full_name, email, number, username, password, verification_code)  VALUES('%s', '%s', '%d', '%s', '%s','%d')",
             $connection->escape_string($_POST['fullName']),
             $connection->escape_string($_POST['email']),
             $_POST['number'],
             $connection->escape_string($_POST['username']),
-            password_hash($_POST['password'], PASSWORD_DEFAULT));
+            password_hash($_POST['password'], PASSWORD_DEFAULT),
+            rand(1000, 9999)
+        );
 
         $connection->query($query);
 
@@ -69,12 +70,17 @@ function signup($connection){
     $connection->close();
 }
 
-function VerificateEmail(){
-  
+function VerificateEmail($connection){
+    
+    $verificationCode = $connection->query("SELECT verification_code FROM `users` WHERE email = '".$_POST['email']."'");
+
+    while ($row = $verificationCode->fetch_assoc()) {
+        $userVerificationCode = $row['verification_code'];
+    }
+
     $mail = new PHPMailer(TRUE); 
     
-    $mail->isSMTP();  
-    $mail->SMTPDebug = 4;                
+    $mail->isSMTP();                
     $mail->Host = getenv("EMAIL_HOST");       
     $mail->SMTPAuth = true;              
     $mail->Username = getenv("EMAIL_USERNAME");   
@@ -86,20 +92,22 @@ function VerificateEmail(){
     $mail->isHTML(true); 
     $mail->Subject = "Your verification code is here"; 
     
-    $bodyContent = "<h1> Hello ".$_POST['fullName']."."." Your verification code is".(rand(100, 9999))."</h1>"; 
+    $bodyContent = "<h1> Hello ".$_POST['fullName']."."." Your verification code is ".$userVerificationCode. "</h1>"; 
     $mail->Body = $bodyContent; 
     
     $mail->send();
 }
-var_dump(getenv("EMAIL_PORT"));
+
 if ($_POST['type'] == 'signUp'){
     $connection = connectToDb();
     $exist = checkIfUserExists($connection);
 
     if (!$exist) {
         signup($connection);
-        VerificateEmail();
+        VerificateEmail($connection);
     }
 }
+
+
 
 ?>
