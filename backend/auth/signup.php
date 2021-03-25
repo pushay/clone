@@ -65,9 +65,7 @@ function signup($connection){
         echo json_encode([
             'registered' => true
         ]);
-    }
-
-    $connection->close();
+    } 
 }
 
 function VerificateEmail($connection){
@@ -90,9 +88,11 @@ function VerificateEmail($connection){
     $mail->setFrom(getenv("EMAIL_USERNAME"), 'InstagramClone'); 
     $mail->addAddress('joannaKeiley100@gmail.com'); 
     $mail->isHTML(true); 
-    $mail->Subject = "Your verification code is here"; 
+    $mail->Subject = "Your verification code is".$userVerificationCode; 
     
-    $bodyContent = "<h1> Hello ".$_POST['fullName']."."." Your verification code is ".$userVerificationCode. "</h1>"; 
+    $bodyContent = "<h1> Hello ".$_POST['fullName']."!"." Your verification code is ".$userVerificationCode. "</h1>
+    </br>
+    <p>Please activate your account by writing or copying this code to our form.</p>"; 
     $mail->Body = $bodyContent; 
     
     $mail->send();
@@ -108,6 +108,27 @@ if ($_POST['type'] == 'signUp'){
     }
 }
 
+function ActivateAnAccount($connection){
+    $verificationCode = $connection->query("SELECT verification_code FROM users WHERE email = '".$_POST['email']. "'");
 
+    while ($row = $verificationCode->fetch_assoc()) {
+        $userVerificationCode = $row['verification_code'];
+    }
+
+    if ($userVerificationCode){
+        
+        if ($userVerificationCode == $_POST['verificationCode']){
+            $connection->query("UPDATE USERS SET activatedAccount = 1 WHERE email = '".$_POST['email']. "' ");
+            echo json_encode(array('activated' => true));
+        } else {
+            echo json_encode(array('activated' => false));
+        }
+    }
+}
+
+if ($_POST['type'] == 'verificateCode'){ 
+    $connection = connectToDb();
+    ActivateAnAccount($connection);
+}
 
 ?>

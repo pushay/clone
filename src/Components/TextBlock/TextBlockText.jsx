@@ -49,13 +49,20 @@ const TextBlocks = {
         },  
     },
     textBlock6:{
-        textBlockDiv:'textBlock__container',
+        textBlockDiv:'textBlock__container textBlock__container--margin',
         heading:{
             textHeader:"Didn't get an email?",
             textBlockHeading:'textBlock__header textBlock__header--secondary'
         },
-        
-    }
+    },
+    textBlock7:{
+        textBlockDiv:'',
+        paragraph:{
+            paragraph:'By signing up, you agree to our Terms. Any data submited will not be used against you and will be collected only for educational purpose of this project.',
+            textBlockParagraph:'logSign__bellowParagraph'
+        }
+    },
+    
 }
 
 export default TextBlocks

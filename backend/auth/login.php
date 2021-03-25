@@ -9,8 +9,7 @@ function login(){
     $connection = new mysqli('localhost', 'root', '', 'clone');
     
     if ($connection->connect_error){
-        die('Connection failed' . $connection->connect_error);
-    
+        die('Connection failed' . $connection->connect_error); 
     }
   
     if ( isset($_POST['type']) && $_POST['type'] == 'fbLogin'){
@@ -21,7 +20,7 @@ function login(){
     }
 
     $connection->close();
-
 }   
+
     login();
 ?>

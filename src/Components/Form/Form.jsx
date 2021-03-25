@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {InputsText} from '../LoginSign/LogSignText';
+import {InputsText} from '../LoginSign/logSignText';
 import Button from '../Button/Button';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
@@ -248,6 +248,7 @@ function Form(props){
             }
         }
         if (location.pathname === '/signUp/message'){
+            setVerificationCodeInput({...verificationCode, 'email':window.localStorage.getItem('email')})
             postSignUpForm(verificationCode, 'verificateCode', sign)
         }
     }
@@ -274,7 +275,6 @@ function Form(props){
     }
 
     const postSignUpForm = (form, formType, http) => {
-
         let formData = new FormData()
         for (let [key, value] of Object.entries(form)){
             formData.append(key, value)
@@ -288,11 +288,10 @@ function Form(props){
             .then(response => response.json()).then((response) => {
                 if (location.pathname === '/signUp'){
                     if (response.registered){
+                        window.localStorage.setItem('email',form.email)
                         clearForm();
-                        history.push('/signUp/message')
+                        history.push('/signUp/verify')
                     } else changeFormIfDataExists(response)
-                }
-                if (location.pathname === '/signUp/message'){
                 }
             })
     }
@@ -307,13 +306,15 @@ function Form(props){
 
     return(
         <div className='form__formContainer'>
-            <form className='form__formArea' id='form'>
+            <form className='form__formArea'
+             id='form'>
                 {InputsText[props.inputs].map((inputType, i)=> {
                     return(
                         <div className='form__inputArea' key={[props.inputs]+inputType.name+[i]}>
                             <input
                                 style={{
-                                    border: (signRedInputs[i] === 1 || logRedInputs[i] === 1) ? '1px solid red' : '1px solid rgb(180, 173, 173)'
+                                    border: (signRedInputs[i] === 1 || logRedInputs[i] === 1) ?
+                                     '1px solid red' : '1px solid rgb(180, 173, 173)'
                                 }}
                                 onChange={e => {getForm(inputType.useAs, e.target.value);}}
                                 type={inputType.type ? inputType.type : null} 
@@ -325,7 +326,11 @@ function Form(props){
                         )
                     })}
                 {props.button ? 
-                <Button buttonText={props.buttonName} buttonClass={props.buttonClass} onClick={() =>{buttonFunctionWrapper()}} disabled={location.pathname === '/' || location.pathname === '/signUp'? buttonDisabled : null}/>
+                <Button 
+                buttonText={props.buttonName} 
+                buttonClass={props.buttonClass} 
+                onClick={() =>{buttonFunctionWrapper()}} 
+                disabled={location.pathname === '/' || location.pathname === '/signUp'? buttonDisabled : null}/>
                 : null
                 }   
             </form>

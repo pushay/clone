@@ -7,7 +7,7 @@ import slide4 from '../../Assets/loginImageSlider/slide4.jpg';
 
 const slides = [slide1, slide2, slide3, slide4]
 
-function ImageSlider(props){
+function ImageSlider(){
 
     const [loginSlider, setLoginSlider] = useState(0)
 
@@ -27,7 +27,6 @@ function ImageSlider(props){
         })
     }
 
-    if (props.imageSlider === 'login'){
         return(
             <div className='imageSlider'>
                <img src={transparentPhone} alt='transparentPhone' className='imageSlider__transparentPhone'/>
@@ -36,13 +35,6 @@ function ImageSlider(props){
                </div>
             </div>
         )
-    }
-
-    else return(
-        <div>
-            else case
-        </div>
-    )
 }
 
 export default ImageSlider
