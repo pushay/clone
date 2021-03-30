@@ -9,7 +9,6 @@ function Form(props){
     const [loginForm, setLoginForm] = useState({})
     const [signUpForm, setSignUpForm] = useState({})
     const [buttonDisabled, setButtonState] = useState(true)
-    const [logRedInputs, setLogRedInputs] = useState([])
     const [signRedInputs, setSignRedInputs] = useState([])
     const [verificationCode, setVerificationCodeInput] = useState({})
     
@@ -17,11 +16,9 @@ function Form(props){
     const history = useHistory();
 
     useEffect( () => {
-        if (location.pathname === '/' || location.pathname === '/signUp'){
-            hidePopUp()
-            validateForm();
-        } 
-    },[loginForm, signUpForm, location.pathname])
+        validateForm()
+        hidePopUp()
+    },[loginForm, signUpForm, verificationCode, location.pathname])
 
     const cleanMessages = () => {
         props.setPopUpMessages([])
@@ -34,16 +31,10 @@ function Form(props){
         setLoginForm({})
     }
 
-    const cleaningRedInputs = () => {
-        setLogRedInputs([])
-        setSignRedInputs([])
-    }
     useEffect( ()=>{
-        if (location.pathname === '/' || location.pathname === '/signUp'){
-            return () => {
-                cleaningRedInputs()
-                cleanMessages()
-        } 
+        return () => {
+            setSignRedInputs([])
+            cleanMessages()
     }},[location.pathname])
 
 
@@ -79,11 +70,10 @@ function Form(props){
         setTimeout(()=> {
             setSignRedInputs([])
         },6000)
-
     }
 }
 
-    const showPopup = () => {
+    const showPopup = (type) => {
         let passRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$', 'gm');
         let emailRegex = new RegExp('.+@.{2,15}\..{1,15}')
 
@@ -105,7 +95,6 @@ function Form(props){
                     }
                 }
             }
-
 
             props.setPopUpMessages(messageArray)
             setTimeout(()=> {
@@ -149,7 +138,26 @@ function Form(props){
             setTimeout(()=> {
                 props.setShowPopUp(true);
             },1000)
-            } 
+
+        } 
+
+            if (location.pathname === '/signUp/verify'){
+                let checkArray = props.popUpMessages;
+
+                if (type == 'unactivated' ){
+                    if (!checkArray.includes('Incorrect code')){
+                        checkArray.push('Incorrect code')
+                    }
+                }
+                props.setPopUpMessages(checkArray)
+                setTimeout(()=> {
+                    props.setShowPopUp(true);
+                },1000)
+
+                setTimeout(()=> {
+                    cleanMessages()
+                },5000)
+            }
     }
 
     const hidePopUp = () => {
@@ -209,7 +217,8 @@ function Form(props){
             } else
                 setButtonState(true)
     
-        } else {
+        } 
+        if (location.pathname === '/signUp'){
             if (signUpForm.number && signUpForm.email && signUpForm.fullName && signUpForm.username && signUpForm.password &&
                 signUpForm.number.length >= 3 && signUpForm.fullName.length >= 3 && signUpForm.username.length >= 3 && signUpForm.email.length >= 3 && signUpForm.password.length >= 3){
                 setButtonState(false)
@@ -217,6 +226,12 @@ function Form(props){
             else {
                 setButtonState(true);
             }
+        }
+        if (location.pathname === '/signUp/verify'){
+            if ((verificationCode.verificationCode && verificationCode.verificationCode.length == 4) ){
+                setButtonState(false)
+            } else setButtonState(true)
+            
         }
     }
 
@@ -228,8 +243,8 @@ function Form(props){
         if (location.pathname === '/signUp') {
             setSignUpForm({...signUpForm, [input]:inputValue})
         }
-        if (location.pathname === '/signUp/message'){
-            setVerificationCodeInput({...verificationCode, [input]:inputValue})
+        if (location.pathname === '/signUp/verify'){
+            setVerificationCodeInput({...verificationCode,'email':window.localStorage.getItem('email'), [input]:inputValue})
         }
     }
 
@@ -238,7 +253,6 @@ function Form(props){
         const sign = 'http://localhost/backend/auth/signup.php'
 
         if (props.popUpMessages && props.popUpMessages.length == 0){
-
             if (location.pathname === '/'){
             postSignUpForm(loginForm, 'login', login)
             }
@@ -246,10 +260,10 @@ function Form(props){
             if (location.pathname === '/signUp'){
             postSignUpForm(signUpForm, 'signUp', sign)
             }
-        }
-        if (location.pathname === '/signUp/message'){
-            setVerificationCodeInput({...verificationCode, 'email':window.localStorage.getItem('email')})
-            postSignUpForm(verificationCode, 'verificateCode', sign)
+
+            if (location.pathname === '/signUp/verify'){
+                postSignUpForm(verificationCode, 'verificateCode', sign)
+            }
         }
     }
 
@@ -279,6 +293,7 @@ function Form(props){
         for (let [key, value] of Object.entries(form)){
             formData.append(key, value)
         }
+
         formData.append('type', formType);
         fetch(http, {
             method: 'POST',
@@ -293,15 +308,18 @@ function Form(props){
                         history.push('/signUp/verify')
                     } else changeFormIfDataExists(response)
                 }
+                if (location.pathname === '/signUp/verify'){
+                    if (response.activated == false){
+                        showPopup('unactivated')
+                    }
+                }
             })
     }
 
     const buttonFunctionWrapper = () => {
-        if (location.pathname === '/' || location.pathname === '/signUp'){
-            showPopup()
-            redingInputs()
-            checkForm()
-        } else checkForm()
+        showPopup()
+        redingInputs()
+        checkForm()
     }
 
     return(
@@ -313,15 +331,14 @@ function Form(props){
                         <div className='form__inputArea' key={[props.inputs]+inputType.name+[i]}>
                             <input
                                 style={{
-                                    border: (signRedInputs[i] === 1 || logRedInputs[i] === 1) ?
+                                    border: (signRedInputs[i] === 1) ?
                                      '1px solid red' : '1px solid rgb(180, 173, 173)'
                                 }}
                                 onChange={e => {getForm(inputType.useAs, e.target.value);}}
                                 type={inputType.type ? inputType.type : null} 
                                 name={inputType.name}
                                 className={props.inputClass}
-                                placeholder={inputType.name}
-                                 />
+                                placeholder={inputType.name} />
                         </div>
                         )
                     })}
@@ -330,7 +347,7 @@ function Form(props){
                 buttonText={props.buttonName} 
                 buttonClass={props.buttonClass} 
                 onClick={() =>{buttonFunctionWrapper()}} 
-                disabled={location.pathname === '/' || location.pathname === '/signUp'? buttonDisabled : null}/>
+                disabled={props.inputs ? buttonDisabled : null}/>
                 : null
                 }   
             </form>

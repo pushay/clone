@@ -88,13 +88,12 @@ function VerificateEmail($connection){
     $mail->setFrom(getenv("EMAIL_USERNAME"), 'InstagramClone'); 
     $mail->addAddress('joannaKeiley100@gmail.com'); 
     $mail->isHTML(true); 
-    $mail->Subject = "Your verification code is".$userVerificationCode; 
+    $mail->Subject = "Your verification code is"." ".$userVerificationCode; 
     
     $bodyContent = "<h1> Hello ".$_POST['fullName']."!"." Your verification code is ".$userVerificationCode. "</h1>
     </br>
     <p>Please activate your account by writing or copying this code to our form.</p>"; 
-    $mail->Body = $bodyContent; 
-    
+    $mail->Body = $bodyContent;
     $mail->send();
 }
 
@@ -115,8 +114,7 @@ function ActivateAnAccount($connection){
         $userVerificationCode = $row['verification_code'];
     }
 
-    if ($userVerificationCode){
-        
+    if ($userVerificationCode){  
         if ($userVerificationCode == $_POST['verificationCode']){
             $connection->query("UPDATE USERS SET activatedAccount = 1 WHERE email = '".$_POST['email']. "' ");
             echo json_encode(array('activated' => true));
@@ -129,6 +127,11 @@ function ActivateAnAccount($connection){
 if ($_POST['type'] == 'verificateCode'){ 
     $connection = connectToDb();
     ActivateAnAccount($connection);
+}
+
+if ($_POST['type'] == 'sendEmail'){
+    $connection = connectToDb();
+    VerificateEmail($connection);
 }
 
 ?>

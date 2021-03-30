@@ -5,7 +5,6 @@ import Form from '../../Components/Form/Form';
 import PopUp from '../../Components/PopUp/PopUp';
 import FbButtion from '../Button/FbButton';
 import Button from '../Button/Button';
-import TextBlocks from '../../Components/TextBlock/TextBlockText';
 
 function LogSign(props){
 
@@ -84,7 +83,7 @@ function LogSign(props){
                         <TextBlock text={props.endText}/>
                     : null}
                     {props.buttonText ?
-                    <Button buttonText={props.buttonText} buttonClass={props.buttonClass}/>
+                    <Button buttonText={props.buttonText} onClick={props.onClick} buttonClass={props.buttonClass}/>
                     : null    
                     }
                 </div>
