@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {InputsText} from '../LoginSign/logSignText';
 import Button from '../Button/Button';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import Input from '../Input';
 
 function Form(props){
 
@@ -214,43 +214,25 @@ function Form(props){
         if (location.pathname === '/'){
             if (loginForm.password && loginForm.password.length >= 3 && loginForm.usephemail && loginForm.usephemail.length >= 3){
                 setButtonState(false);
-            } else
-                setButtonState(true)
-    
+            } else setButtonState(true)
         } 
         if (location.pathname === '/signUp'){
             if (signUpForm.number && signUpForm.email && signUpForm.fullName && signUpForm.username && signUpForm.password &&
                 signUpForm.number.length >= 3 && signUpForm.fullName.length >= 3 && signUpForm.username.length >= 3 && signUpForm.email.length >= 3 && signUpForm.password.length >= 3){
                 setButtonState(false)
-            }
-            else {
-                setButtonState(true);
-            }
+            } else setButtonState(true);
         }
         if (location.pathname === '/signUp/verify'){
             if ((verificationCode.verificationCode && verificationCode.verificationCode.length == 4) ){
                 setButtonState(false)
             } else setButtonState(true)
-            
-        }
-    }
-
-    const getForm = (input, inputValue) => {
-        if (location.pathname === '/' ){
-            setLoginForm({...loginForm, [input]:inputValue})
-        }
-
-        if (location.pathname === '/signUp') {
-            setSignUpForm({...signUpForm, [input]:inputValue})
-        }
-        if (location.pathname === '/signUp/verify'){
-            setVerificationCodeInput({...verificationCode,'email':window.localStorage.getItem('email'), [input]:inputValue})
         }
     }
 
     const checkForm = () => {
         const login = 'http://localhost/backend/auth/login.php'
         const sign = 'http://localhost/backend/auth/signup.php'
+        const verificateEmail = 'http://localhost/backend/auth/verificateEmail.php'
 
         if (props.popUpMessages && props.popUpMessages.length == 0){
             if (location.pathname === '/'){
@@ -262,7 +244,7 @@ function Form(props){
             }
 
             if (location.pathname === '/signUp/verify'){
-                postSignUpForm(verificationCode, 'verificateCode', sign)
+                postSignUpForm(verificationCode, 'verificateCode', verificateEmail)
             }
         }
     }
@@ -285,7 +267,6 @@ function Form(props){
         setTimeout(()=> {
             cleanMessages()
         },7000)
-
     }
 
     const postSignUpForm = (form, formType, http) => {
@@ -311,6 +292,9 @@ function Form(props){
                 if (location.pathname === '/signUp/verify'){
                     if (response.activated == false){
                         showPopup('unactivated')
+                    } 
+                    if (response.activated == true){
+                        history.push('/main')
                     }
                 }
             })
@@ -326,20 +310,20 @@ function Form(props){
         <div className='form__formContainer'>
             <form className='form__formArea'
              id='form'>
-                {InputsText[props.inputs].map((inputType, i)=> {
+                {props.inputs.map((inputType, i)=> {
                     return(
-                        <div className='form__inputArea' key={[props.inputs]+inputType.name+[i]}>
-                            <input
-                                style={{
-                                    border: (signRedInputs[i] === 1) ?
-                                     '1px solid red' : '1px solid rgb(180, 173, 173)'
-                                }}
-                                onChange={e => {getForm(inputType.useAs, e.target.value);}}
-                                type={inputType.type ? inputType.type : null} 
-                                name={inputType.name}
-                                className={props.inputClass}
-                                placeholder={inputType.name} />
-                        </div>
+                        <Input
+                        inputClass={props.inputClass}
+                        loginForm={loginForm}
+                        setLoginForm={setLoginForm}
+                        signUpForm={signUpForm}
+                        setSignUpForm={setSignUpForm}
+                        verificationCode={verificationCode}
+                        setVerificationCodeInput={setVerificationCodeInput}
+                        key={[props.inputs]+inputType.name+[i]}
+                        style={{border: (signRedInputs[i] === 1) ?
+                            '1px solid red' : '1px solid rgb(180, 173, 173)'}} 
+                        inputType={inputType} />
                         )
                     })}
                 {props.button ? 

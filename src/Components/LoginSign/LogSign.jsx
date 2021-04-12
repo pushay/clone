@@ -12,12 +12,12 @@ function LogSign(props){
    const [popUpMessages, setPopUpMessages] = useState([])
 
     useEffect(() => {
-        facebookLogin();
+        facebookLogin()
     }, [])
 
     const facebookLogin = () => {
         if (window.FB) {
-            window.FB.Event.subscribe('auth.login', (response) => {
+            window.FB.Event.subscribe('auth.login', () => {
                 getData();
             });
         } else {
@@ -62,6 +62,7 @@ function LogSign(props){
                     : null}
                     {props.inputs ?
                     <Form
+                    onChange
                     inputs={props.inputs}
                     showPopUp={showPopUp}
                     buttonName={props.buttonName}
@@ -72,7 +73,7 @@ function LogSign(props){
                     buttonClass={props.buttonClass}
                     setShowPopUp={setShowPopUp}/>
                     :null}
-                    {props.FbButton ?
+                    {props.fbLogin ?
                     <div className='logSign__facebookButton'>
                         <span className='logSign__divide'>OR</span>
                         <FbButtion/>

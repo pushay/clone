@@ -13,7 +13,8 @@ function TextBlock(props){
             : null
             }
             {props.text.link ?
-            <Link className={props.text.link.linkBlock} to={props.text.link.link}>{props.text.link.linkText}</Link>
+            <Link className={props.text.link.linkBlock} 
+            to={props.text.link.link}>{props.text.link.linkText}</Link>
             : null}
         </div>
     )

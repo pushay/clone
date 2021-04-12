@@ -1,0 +1,45 @@
+.input {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+      &__input {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 0.5rem;
+        font-family: inherit;
+        border-radius: 2px;
+        padding-left: 1rem;
+
+        &--form {
+          height: 35px;
+          width: 260px;
+          border: 1px solid rgb(180, 173, 173);
+        }
+
+        &--confirm {
+          height: 30px;
+          width: 150px;
+          border: 1px solid rgb(180, 173, 173);
+        }
+
+        &--search {
+            height: 30px;
+            width: 200px;
+            padding-left: 2rem;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgb(44, 42, 42);
+        }
+      }
+
+      &__icon {
+        height: 12px;
+        width: 12px;
+        position: absolute;
+        top:10px;
+        left:10px;
+        z-index: 100;
+      }
+}

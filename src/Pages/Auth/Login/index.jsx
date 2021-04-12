@@ -1,21 +1,23 @@
 import React from 'react';
-import LogSign from '../../Components/LoginSign/LogSign';
-import TextBlocks from '../../Components/TextBlock/TextBlockText';
-import ImageSlider from '../../Components/ImageSlider/ImageSlider';
+import LogSign from '../../../Components/LoginSign/LogSign';
+import TextBlocks from '../../../Components/TextBlock/TextBlockText';
+import ImageSlider from '../../../Components/ImageSlider/ImageSlider';
+import {InputsText} from '../../../Components/LoginSign/logSignText';
 
 export default function Login() {
+
     return (
         <div className='loginSignup'>
             <ImageSlider/>
             <LogSign
             logo
-            FbButton
+            fbLogin
             imageSlider='login' 
             buttonName='login in' 
             question={TextBlocks.textBlock3} 
-            inputs='loginInput' 
+            inputs={InputsText.loginInput}
             logSignDiv='logSign logSign--login'
-            inputClass='form__input form__input--form'
+            inputClass='input__input input__input--form'
             buttonClass='button button--form'  
             popUpClass='popUp popUp--logged'/>
         </div>

@@ -10,33 +10,6 @@
         margin-bottom: 2rem;
       }
   
-      &__inputArea {
-        display: flex;
-        position: relative;
-        align-items: center;
-        justify-content: center;
-      }
-
-      &__input {
-        display: flex;
-        justify-content: flex-start;
-        margin-bottom: 0.5rem;
-        border: 1px solid rgb(180, 173, 173);
-        font-family: inherit;
-        border-radius: 2px;
-        padding-left: 1rem;
-
-        &--form {
-          height: 35px;
-          width: 260px;
-        }
-
-        &--confirm {
-          height: 30px;
-          width: 150px;
-        }
-      }
-  
       &__checkAccount {
         padding: 2rem;
         border: 1px solid rgb(207, 199, 199);

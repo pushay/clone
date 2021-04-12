@@ -62,6 +62,13 @@ const TextBlocks = {
             textBlockParagraph:'logSign__bellowParagraph'
         }
     },
+    textBlock8 : {
+        textBlockDiv:'',
+        heading:{
+            textHeader:'InstagramClone',
+            textBlockHeading:'textBlock__header textBlock__header--tertiary'
+        },
+    },
     
 }
 

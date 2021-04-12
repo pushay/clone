@@ -1,6 +1,7 @@
 import React from 'react';
-import LogSign from '../../Components/LoginSign/LogSign';
-import TextBlocks from '../../Components/TextBlock/TextBlockText';
+import LogSign from '../../../Components/LoginSign/LogSign';
+import TextBlocks from '../../../Components/TextBlock/TextBlockText';
+import {InputsText} from '../../../Components/LoginSign/logSignText';
 
 export default function VerificateAccount(){
 
@@ -13,7 +14,6 @@ export default function VerificateAccount(){
             mode:'cors',
             body:formData
         }).then(response => response.json())
-
     }
 
     return(
@@ -21,8 +21,8 @@ export default function VerificateAccount(){
             <LogSign
             frontText={TextBlocks.textBlock4}
             buttonName='Continue' 
-            inputs='confirmInput'
-            inputClass='form__input form__input--confirm'   
+            inputs={InputsText.confirmInput}
+            inputClass='input__input input__input--confirm'   
             logSignDiv='logSign logSign--login'
             popUpClass='popUp popUp--verify'
             buttonClass='button button--confirm'

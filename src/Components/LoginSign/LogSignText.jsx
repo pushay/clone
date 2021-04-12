@@ -12,6 +12,9 @@ const InputsText = {
         ],
         confirmInput:[
             {name:'Enter code', useAs:'verificationCode', type:'number'}
+        ],
+        search:[
+            {name:'Search', useAs:'search', type:'all'}
         ]
 }
 
