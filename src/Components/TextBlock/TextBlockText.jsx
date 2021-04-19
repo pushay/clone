@@ -69,6 +69,25 @@ const TextBlocks = {
             textBlockHeading:'textBlock__header textBlock__header--tertiary'
         },
     },
+    textBlock9:{
+        textBlockDiv:'textBlock__container',
+        heading:{
+            textHeader:'Suggestions for you',
+            textBlockHeading:'textBlock__header textBlock__header--secondary'
+        },
+    },
+    textBlock10:{
+        textBlockDiv:'textBlock__container',
+        heading:{
+            textHeader:"We didn't find any results",
+            textBlockHeading:'textBlock__header textBlock__header--secondary'
+        },
+        paragraph:{
+            paragraph:'Make sure that everything is spelt correctly or try different keywords.',
+            textBlockParagraph:'logSign__bellowParagraph'
+        }
+    }
+  
     
 }
 

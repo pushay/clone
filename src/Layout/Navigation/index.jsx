@@ -4,7 +4,7 @@ import TextBlocks from '../../Components/TextBlock/TextBlockText';
 import Input from '../../Components/Input';
 import Menu from '../Menu';
 import {MenuList} from '../Menu/menuText';
-import search from '../../Assets/search.png'
+import search from '../../Assets/menu/search.png'
 
 const Navigation = (props) => {
 
@@ -12,7 +12,8 @@ const Navigation = (props) => {
         <div className='navigation'>
             <TextBlock 
             text={TextBlocks.textBlock8}/>
-            <Input 
+            <Input
+            setSearch={props.setSearch} 
             onKeyDown 
             inputType={props.inputs} 
             inputClass='input__input input__input--search' 

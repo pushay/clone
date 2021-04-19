@@ -1,8 +1,8 @@
-import home3 from '../../Assets/home3.png';
-import compass from '../../Assets/compass.png';
-import compass2 from '../../Assets/compass2.png';
-import heart from '../../Assets/heart.png';
-import user from '../../Assets/user.png';
+import home3 from '../../Assets/menu/home3.png';
+import compass from '../../Assets/menu/compass.png';
+import compass2 from '../../Assets/menu/compass2.png';
+import heart from '../../Assets/menu/heart.png';
+import avatar from '../../Assets/menu/avatar.png';
 
 export const MenuList = {
     navigationMenu : [
@@ -10,6 +10,6 @@ export const MenuList = {
         {link:'/chat', icon:compass},
         {link:'/explore', icon:compass2},
         {link:'/activity', icon:heart},
-        {link:'/profile', icon:user}
+        {link:'/profile', icon:avatar}
     ]
 } 

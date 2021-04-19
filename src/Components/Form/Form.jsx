@@ -313,6 +313,7 @@ function Form(props){
                 {props.inputs.map((inputType, i)=> {
                     return(
                         <Input
+                        onChange={props.onChange}
                         inputClass={props.inputClass}
                         loginForm={loginForm}
                         setLoginForm={setLoginForm}

@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Input = (props) => {
-
-    const [search, setSearch] = useState()
 
     const location = useLocation()
 
@@ -21,7 +19,7 @@ const Input = (props) => {
 
     const g4et = (event)=> {
         if (event.keyCode === 13) {
-            setSearch(event.target.value)
+            props.setSearch(event.target.value)
             event.currentTarget.value = "";
         }
     }
