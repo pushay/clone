@@ -141,23 +141,23 @@ function Form(props){
 
         } 
 
-            if (location.pathname === '/signUp/verify'){
-                let checkArray = props.popUpMessages;
+        if (location.pathname === '/signUp/verify'){
+            let checkArray = props.popUpMessages;
 
-                if (type == 'unactivated' ){
-                    if (!checkArray.includes('Incorrect code')){
-                        checkArray.push('Incorrect code')
-                    }
+            if (type == 'unactivated' ){
+                if (!checkArray.includes('Incorrect code')){
+                    checkArray.push('Incorrect code')
                 }
-                props.setPopUpMessages(checkArray)
-                setTimeout(()=> {
-                    props.setShowPopUp(true);
-                },1000)
-
-                setTimeout(()=> {
-                    cleanMessages()
-                },5000)
             }
+            props.setPopUpMessages(checkArray)
+            setTimeout(()=> {
+                props.setShowPopUp(true);
+            },1000)
+
+            setTimeout(()=> {
+                cleanMessages()
+            },5000)
+        }
     }
 
     const hidePopUp = () => {
@@ -182,7 +182,7 @@ function Form(props){
                 }
             }
             props.setPopUpMessages(messageArray)
-            }
+        }
 
         if (location.pathname === '/signUp'){
             let msgArray = props.popUpMessages;
@@ -236,13 +236,12 @@ function Form(props){
 
         if (props.popUpMessages && props.popUpMessages.length == 0){
             if (location.pathname === '/'){
-            postSignUpForm(loginForm, 'login', login)
+                postSignUpForm(loginForm, 'login', login)
             }
 
             if (location.pathname === '/signUp'){
-            postSignUpForm(signUpForm, 'signUp', sign)
+                postSignUpForm(signUpForm, 'signUp', sign)
             }
-
             if (location.pathname === '/signUp/verify'){
                 postSignUpForm(verificationCode, 'verificateCode', verificateEmail)
             }
@@ -257,6 +256,13 @@ function Form(props){
         }
         if (response.emailExists){
             messageArray.push("This email's already connected to the account. Please login instead or use another one.")
+        }
+
+        if (response.loggedIn == false){
+            messageArray.push('Wrong password');
+        }
+        if (response.loginError == 'accountNotExisting'){
+            messageArray.push("Account with these credentials does not exist. Please sign up")
         }
         props.setPopUpMessages(messageArray)
 
@@ -274,7 +280,6 @@ function Form(props){
         for (let [key, value] of Object.entries(form)){
             formData.append(key, value)
         }
-
         formData.append('type', formType);
         fetch(http, {
             method: 'POST',
@@ -287,6 +292,12 @@ function Form(props){
                         window.localStorage.setItem('email',form.email)
                         clearForm();
                         history.push('/signUp/verify')
+                    } else changeFormIfDataExists(response)
+                }
+                if (location.pathname === '/'){
+                    if (response["loggedIn"] == true){
+                        clearForm();
+                        history.push('/main')
                     } else changeFormIfDataExists(response)
                 }
                 if (location.pathname === '/signUp/verify'){
@@ -333,8 +344,7 @@ function Form(props){
                 buttonClass={props.buttonClass} 
                 onClick={() =>{buttonFunctionWrapper()}} 
                 disabled={props.inputs ? buttonDisabled : null}/>
-                : null
-                }   
+                : null}   
             </form>
         </div>
     )
