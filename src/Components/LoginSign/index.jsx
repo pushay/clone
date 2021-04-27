@@ -1,10 +1,11 @@
 import React, { useEffect, useState} from 'react';
-import TextBlock from '../../Components/TextBlock/TextBlock';
-import TextBlockTexts from '../../Components/TextBlock/TextBlockText';
-import Form from '../../Components/Form/Form';
-import PopUp from '../../Components/PopUp/PopUp';
-import FbButtion from '../Button/FbButton';
-import Button from '../Button/Button';
+import TextBlock from '../TextBlock';
+import TextBlockTexts from '../TextBlock/TextBlockText';
+import Form from '../Form';
+import PopUp from '../PopUp/PopUp';
+import FbButton from '../Button/FbButton';
+import Button from '../Button';
+
 
 function LogSign(props){
 
@@ -13,8 +14,11 @@ function LogSign(props){
 
     useEffect(() => {
         facebookLogin()
-    }, [])
+}, [])
 
+useEffect(()=> {
+    return() => window.location.reload()
+})
     const facebookLogin = () => {
         if (window.FB) {
             window.FB.Event.subscribe('auth.login', () => {
@@ -76,7 +80,7 @@ function LogSign(props){
                     {props.fbLogin ?
                     <div className='logSign__facebookButton'>
                         <span className='logSign__divide'>OR</span>
-                        <FbButtion/>
+                        <FbButton/>
                     </div>
                     : null
                     }

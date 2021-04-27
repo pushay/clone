@@ -1,5 +1,5 @@
 import React from 'react';
-import TextBlock from '../../Components/TextBlock/TextBlock';
+import TextBlock from '../../Components/TextBlock';
 import TextBlocks from '../../Components/TextBlock/TextBlockText';
 import Input from '../../Components/Input';
 import Menu from '../Menu';

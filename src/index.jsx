@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-
+    
 window.fbAsyncInit = function() {
     window.FB.init({
       appId      : '421404729124755',
@@ -14,10 +14,7 @@ window.fbAsyncInit = function() {
       useCachedDialogs: true,
       oauth: true
     });
-    
-      
-    window.FB.AppEvents.logPageView();   
-      
+    window.FB.AppEvents.logPageView();     
   };
 
   (function(d, s, id){
@@ -27,7 +24,6 @@ window.fbAsyncInit = function() {
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-
 
 ReactDOM.render(<App/>,document.getElementById('root'));
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import LogSign from '../../../Components/LoginSign/LogSign';
+import LogSign from '../../../Components/LoginSign';
 import TextBlocks from '../../../Components/TextBlock/TextBlockText';
-import ImageSlider from '../../../Components/ImageSlider/ImageSlider';
+import ImageSlider from '../../../Components/ImageSlider';
 import {InputsText} from '../../../Components/LoginSign/logSignText';
 
 export default function Login() {

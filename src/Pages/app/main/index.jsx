@@ -3,7 +3,7 @@ import Navigation from '../../../Layout/Navigation';
 import {InputsText} from '../../../Components/LoginSign/logSignText';
 import List from '../../../Components/List';
 import Feed from './components/Feed';
-import TextBlock from '../../../Components/TextBlock/TextBlock';
+import TextBlock from '../../../Components/TextBlock';
 import TextBlocks from '../../../Components/TextBlock/TextBlockText';
 
 const Main = () => {

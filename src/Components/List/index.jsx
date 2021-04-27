@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ListItem from './ListItem';
-import TextBlock from '../TextBlock/TextBlock.jsx';
+import TextBlock from '../TextBlock';
 import TextBlocks from '../TextBlock/TextBlockText.jsx'
 
 const List = (props) => {
