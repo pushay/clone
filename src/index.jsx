@@ -26,4 +26,3 @@ window.fbAsyncInit = function() {
    }(document, 'script', 'facebook-jssdk'));
 
 ReactDOM.render(<App/>,document.getElementById('root'));
-

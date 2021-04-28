@@ -4,7 +4,7 @@ import TextBlocks from '../../../Components/TextBlock/TextBlockText';
 import ImageSlider from '../../../Components/ImageSlider';
 import {InputsText} from '../../../Components/LoginSign/logSignText';
 
-export default function Login() {
+export default function Login(props) {
 
     return (
         <div className='loginSignup'>

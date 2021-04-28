@@ -5,6 +5,7 @@ import Form from '../Form';
 import PopUp from '../PopUp/PopUp';
 import FbButton from '../Button/FbButton';
 import Button from '../Button';
+import {useHistory} from 'react-router-dom';
 
 
 function LogSign(props){
@@ -12,13 +13,16 @@ function LogSign(props){
    const [showPopUp, setShowPopUp] = useState(false)
    const [popUpMessages, setPopUpMessages] = useState([])
 
+   const history = useHistory();
+
     useEffect(() => {
         facebookLogin()
 }, [])
 
-useEffect(()=> {
-    return() => window.location.reload()
-})
+    useEffect(()=> {
+        return() => window.location.reload()
+    })
+
     const facebookLogin = () => {
         if (window.FB) {
             window.FB.Event.subscribe('auth.login', () => {
@@ -46,13 +50,19 @@ useEffect(()=> {
             fbLogin.append(key, value)
         }
         fbLogin.append('type', 'fbLogin')
+        fbLogin.append('authenticated', window.localStorage.getItem('authenticated'))
         fetch('http://localhost/backend/auth/login.php', {
             method:'POST',
             mode:'cors',
             body: fbLogin
-        }).then(response => response.json())
+        }).then(response => response.json().then(response => {
+            if (response["loggedIn"] == true){   
+                window.localStorage.setItem('authenticated',true)
+                history.push('/main')
+            }
+        }))
     }
-
+        
     return(
         <div className={props.logSignDiv}>
             <div 

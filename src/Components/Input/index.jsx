@@ -2,7 +2,6 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Input = (props) => {
-
     const location = useLocation()
 
     const getForm = (input, inputValue, e) => {
