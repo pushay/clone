@@ -21,7 +21,7 @@ function LogSign(props){
 
     useEffect(()=> {
         return() => window.location.reload()
-    })
+    },[])
 
     const facebookLogin = () => {
         if (window.FB) {

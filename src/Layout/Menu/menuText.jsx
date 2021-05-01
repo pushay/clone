@@ -9,7 +9,14 @@ export const MenuList = {
         {link:'/', icon:home3},
         {link:'/chat', icon:compass},
         {link:'/explore', icon:compass2},
-        {link:'/activity', icon:heart},
-        {link:'/profile', icon:avatar}
+        {icon:heart, onClick:1, name:'heart'},
+        {icon:avatar, onClick:1, name:'MenuList.menuDropdown'}
+    ],
+    menuDropdown:[
+        {link:'/profile', icon:'', text:'Profile'},
+        {link:'/saved', icon:'', text:'Saved'},
+        {link:'/settings', icon:'', text:'Settings'},
+        {link:'/logout', icon:'', text:'Log out'}
     ]
-} 
+}
+

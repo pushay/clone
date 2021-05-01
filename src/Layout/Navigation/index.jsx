@@ -4,7 +4,7 @@ import TextBlocks from '../../Components/TextBlock/TextBlockText';
 import Input from '../../Components/Input';
 import Menu from '../Menu';
 import {MenuList} from '../Menu/menuText';
-import search from '../../Assets/menu/search.png'
+import search from '../../Assets/menu/search.png';
 
 const Navigation = (props) => {
 
@@ -18,7 +18,7 @@ const Navigation = (props) => {
             inputType={props.inputs} 
             inputClass='input__input input__input--search' 
             icon={search}/>
-            <Menu 
+            <Menu
             menuList={MenuList.navigationMenu}/>
         </div>
     )

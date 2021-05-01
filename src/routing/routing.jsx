@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch } from 'react-router-dom';
+import {Switch } from 'react-router-dom';
 import Login from '../Pages/Auth/Login';
 import Signup from '../Pages/Auth/Signup';
 import VerificateAccount from '../Pages/Auth/VerificateAccount';

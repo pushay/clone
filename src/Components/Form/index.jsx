@@ -296,6 +296,7 @@ function Form(props){
                 }
                 if (location.pathname === '/'){
                     if (response["loggedIn"] == true){
+                        window.localStorage.setItem('authenticated',true)
                         clearForm();
                         history.push('/main')
                     } else changeFormIfDataExists(response)
