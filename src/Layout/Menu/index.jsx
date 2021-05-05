@@ -12,7 +12,9 @@ const Menu = (props) => {
         setShowMenuDropdown(!showMenuDropdown)
         if (content == 'MenuList.menuDropdown'){
             setMenuDropdownChoice(MenuList.menuDropdown)
-        } else setMenuDropdownChoice(null)
+        } else {
+            setMenuDropdownChoice(null)
+        } 
     }
 
     return(
@@ -20,13 +22,16 @@ const Menu = (props) => {
             {props.menuList.map((link, i) => {
                 return(
                     <LinkItem
+                    linkItemSpan='linkItem__nav'
+                    linkItemClass='linkItem__nav'
                     onClick={()=> {changeDropdown(link.name)}}
                     link={link} 
                     key={link+i}/>
                 )
             })}
             {showMenuDropdown === true ?
-            <MenuDropdown 
+            <MenuDropdown
+            linkItemClass='linkItem__link' 
             menu={MenuDropdownchoice}/>
             : null}
         </div>

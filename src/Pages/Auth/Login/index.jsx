@@ -4,14 +4,13 @@ import TextBlocks from '../../../Components/TextBlock/TextBlockText';
 import ImageSlider from '../../../Components/ImageSlider';
 import {InputsText} from '../../../Components/LoginSign/logSignText';
 
-export default function Login(props) {
+export default function Login() {
 
     return (
         <div className='loginSignup'>
             <ImageSlider/>
             <LogSign
             logo
-            fbLogin
             imageSlider='login' 
             buttonName='login in' 
             question={TextBlocks.textBlock3} 

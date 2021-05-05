@@ -9,7 +9,6 @@ export default function Signup() {
         <div className='loginSignup'>
             <LogSign
             logo
-            fbLogin
             inputs={InputsText.signInput}
             buttonName='Sign up' 
             question={TextBlocks.textBlock2} 

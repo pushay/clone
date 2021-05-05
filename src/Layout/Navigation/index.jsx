@@ -11,15 +11,17 @@ const Navigation = (props) => {
     return(
         <div className='navigation'>
             <TextBlock 
-            text={TextBlocks.textBlock8}/>
+                text={TextBlocks.textBlock8}/>
             <Input
-            setSearch={props.setSearch} 
-            onKeyDown 
-            inputType={props.inputs} 
-            inputClass='input__input input__input--search' 
-            icon={search}/>
-            <Menu
-            menuList={MenuList.navigationMenu}/>
+                setSearch={props.setSearch} 
+                onKeyDown 
+                inputType={props.inputs} 
+                inputClass='input__input input__input--search' 
+                icon={search}
+            />
+            <div className='navigation__menu'>
+                <Menu menuList={MenuList.navigationMenu}/>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,17 @@
+.menuDropdown {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top:8.7%;
+    left:72%;
+    box-shadow: 2px 3px 7px rgb(97, 94, 94);
+
+    &__notification {
+        padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+      
+    }
+
+    &__menu {
+        padding: 1.5rem 5.5rem 0rem 1.5rem;
+    }
+}
+

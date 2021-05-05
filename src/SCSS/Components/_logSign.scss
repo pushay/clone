@@ -1,11 +1,11 @@
 .logSign {
  
     &--login {
-      padding:14rem 2rem;
+      padding:16rem 2rem;
     }
 
     &--sign {
-      padding: 7.1rem 2rem;
+      padding: 9.1rem 2rem;
     }
 
      &__Instagram {
@@ -17,12 +17,6 @@
         &--checkAccount {
            display: flex;
         }
-     }
-
-     &__facebookButton {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
      }
 
      &__headerParagraph {
@@ -45,7 +39,6 @@
      }
 
     &__bellowParagraph {
-      margin-top: 2rem;
       width: 280px;
       font-size: 0.8rem;
       text-align: center;

@@ -86,6 +86,17 @@ const TextBlocks = {
             paragraph:'Make sure that everything is spelt correctly or try different keywords.',
             textBlockParagraph:'logSign__bellowParagraph'
         }
+    },
+    textBlock11:{
+        textBlockDiv:'textBlock__container',
+        heading:{
+            textHeader:"Activity On Your Posts",
+            textBlockHeading:'textBlock__header textBlock__header--secondary'
+        },
+        paragraph:{
+            paragraph:"When someone likes or comments on one of your posts, you'll see it here..",
+            textBlockParagraph:'logSign__bellowParagraph'
+        }
     }
   
     
