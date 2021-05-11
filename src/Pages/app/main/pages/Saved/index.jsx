@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Feed = () => {
+function Saved(){
     return(
         <div>
         </div>
     )
 }
 
-export default Feed
+export default Saved

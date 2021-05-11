@@ -1,0 +1,38 @@
+.panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #cfc7c7;
+    padding: 2rem;
+    width: 700px;
+
+    &__avatar {
+
+    }
+
+    &__icon {
+        height: 100px;
+        width: 100px;
+        margin-right: 4rem;
+    }
+
+    &__heading {
+        font-size: 1.6rem;
+        margin-right: 2rem;
+    }
+
+    &__info {
+        
+    }
+
+    &__text {
+        display: flex;
+        
+        margin-bottom: 1rem;
+    }
+
+    &__span {
+        font-size: 1.1rem;
+        margin-right: 2rem;
+    }
+}

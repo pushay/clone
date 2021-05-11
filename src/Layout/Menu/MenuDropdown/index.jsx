@@ -5,13 +5,11 @@ import TextBlocks from '../../../Components/TextBlock/TextBlockText';
 
 
 const MenuDropdown = (props) => {
-    
 
     const logOut = () => {
         window.localStorage.removeItem('authenticated');
     }
     
-
     if (props.menu){
         return(
             <div className='menuDropdown menuDropdown__menu'>
@@ -19,7 +17,7 @@ const MenuDropdown = (props) => {
                     props.menu.map((el,i) => {
                         return(
                             <LinkItem
-                            onClick={logOut}
+                            onClick={el.text == "Log out" ? () => logOut() : null}
                             linkItemClass={props.linkItemClass} 
                             key={el+i} 
                             link={el}/>  

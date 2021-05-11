@@ -16,10 +16,10 @@ export const MenuList = {
         {icon:avatar, onClick:1, name:'MenuList.menuDropdown'}
     ],
     menuDropdown:[
-        {link:'/profile', icon:avatar, text:'Profile'},
-        {link:'/saved', icon:bookmark, text:'Saved'},
-        {link:'/settings', icon:cogs, text:'Settings'},
-        {link:'/', icon:exit, text:'Log out'}
+        {link:'/main/profile', icon:avatar, text:'Profile'},
+        {link:'/main/saved', icon:bookmark, text:'Saved'},
+        {link:'/main/settings', icon:cogs, text:'Settings'},
+        {link:'/', icon:exit, text:'Log out',  onClick:1,}
     ]
 }
 

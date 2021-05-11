@@ -9,22 +9,22 @@ import PrivateUnAuthenticatedRoute from './PrivateUnauthenticatedRoute';
 
 function Routing(){
 
-        return(
-            <Switch>
-                 <PrivateAuthenticatedRoute path="/main">
-                    <Main/>
-                </PrivateAuthenticatedRoute>
-                <PrivateUnAuthenticatedRoute exact path='/'>
-                    <Login/>
-                </PrivateUnAuthenticatedRoute>
-                <PrivateUnAuthenticatedRoute exact path="/signUp">
-                    <Signup/>
-                </PrivateUnAuthenticatedRoute>
-                <PrivateUnAuthenticatedRoute path="/signUp/verify" >
-                    <VerificateAccount/>
-                </PrivateUnAuthenticatedRoute>
-            </Switch>
-        )
+    return(
+        <Switch>
+            <PrivateAuthenticatedRoute path="/main">
+                <Main/>
+            </PrivateAuthenticatedRoute>
+            <PrivateUnAuthenticatedRoute exact path='/'>
+                <Login/>
+            </PrivateUnAuthenticatedRoute>
+            <PrivateUnAuthenticatedRoute exact path="/signUp">
+                <Signup/>
+            </PrivateUnAuthenticatedRoute>
+            <PrivateUnAuthenticatedRoute path="/signUp/verify" >
+                <VerificateAccount/>
+            </PrivateUnAuthenticatedRoute>
+        </Switch>
+    )
 } 
 
 export default Routing

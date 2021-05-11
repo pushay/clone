@@ -80,11 +80,11 @@ const TextBlocks = {
         textBlockDiv:'textBlock__container',
         heading:{
             textHeader:"We didn't find any results",
-            textBlockHeading:'textBlock__header textBlock__header--secondary'
+            textBlockHeading:'textBlock__header textBlock__header--tertiary'
         },
         paragraph:{
             paragraph:'Make sure that everything is spelt correctly or try different keywords.',
-            textBlockParagraph:'logSign__bellowParagraph'
+            textBlockParagraph:'textBlock__paragraph textBlock__paragraph--centered'
         }
     },
     textBlock11:{

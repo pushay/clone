@@ -6,7 +6,7 @@ import MenuDropdown from '../Menu/MenuDropdown';
 const Menu = (props) => {
 
     const [MenuDropdownchoice, setMenuDropdownChoice] = useState(MenuList.menuDropdown)
-    const [showMenuDropdown, setShowMenuDropdown] = useState(true)
+    const [showMenuDropdown, setShowMenuDropdown] = useState(false)
 
     const changeDropdown = (content) => {
         setShowMenuDropdown(!showMenuDropdown)
