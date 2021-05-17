@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import List from '../../../../../Components/List'
+import Posts from '../../../../../Components/Posts';
 import TextBlock from '../../../../../Components/TextBlock';
 import TextBlocks from '../../../../../Components/TextBlock/TextBlockText';
 
@@ -10,7 +11,7 @@ const Feed = (props) => {
     return(
         <div className='feed'>
             {props.following ?
-                <Feed/>
+                <Posts/>
             :
             <div className='feed__error'>
                 {searchedError ?

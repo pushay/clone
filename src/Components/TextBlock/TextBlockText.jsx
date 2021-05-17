@@ -97,7 +97,18 @@ const TextBlocks = {
             paragraph:"When someone likes or comments on one of your posts, you'll see it here..",
             textBlockParagraph:'logSign__bellowParagraph'
         }
-    }
+    },
+    textBlock12:{
+        textBlockDiv:'textBlock__container',
+        heading:{
+            textHeader:"Posts Collection",
+            textBlockHeading:'textBlock__header textBlock__header--secondary'
+        },
+        paragraph:{
+            paragraph:"When you add posts, you'll see them here...",
+            textBlockParagraph:'logSign__bellowParagraph'
+        }
+    },
   
     
 }

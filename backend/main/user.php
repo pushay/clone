@@ -6,9 +6,18 @@ header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 require_once('../auth/connectDatabase.php');
 
 function getUserInformation($connection){
-    $sql = sprintf("SELECT * FROM `users` WHERE email = '%s'",
-        $connection->escape_string($_POST['email'])     
-    );
+    
+    if (is_numeric($_POST['usephemail'])){
+
+        $sql = sprintf("SELECT * FROM users WHERE number = '%d'",
+          $connection->escape_string($_POST['usephemail'])     
+        );
+      } else {
+        $sql = sprintf("SELECT * FROM users WHERE (email = '%s') OR (username = '%s')",
+          $connection->escape_string($_POST['usephemail']),
+          $connection->escape_string($_POST['usephemail'])
+        );
+      }
 
     $result = $connection->query($sql);
 

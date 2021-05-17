@@ -295,6 +295,7 @@ function Form(props){
                     } else changeFormIfDataExists(response)
                 }
                 if (location.pathname === '/'){
+                    window.localStorage.setItem('usephemail',form.usephemail)
                     if (response["loggedIn"] == true){
                         window.localStorage.setItem('authenticated',true)
                         clearForm();
